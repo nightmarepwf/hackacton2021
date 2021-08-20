@@ -1,8 +1,8 @@
 package com.qavan.app.utils
 
 import android.net.Uri
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import com.qavan.app.compose.ColorApricot
 import com.qavan.app.data.model.Item
 import com.qavan.app.data.model.Tag
 import com.qavan.app.extensions.uppercaseFirst
@@ -69,7 +69,7 @@ object PreviewUtil {
                     Tag(
                         id = it,
                         name = word,
-                        color = ColorApricot.value,
+                        color = Color.Transparent.value,
                         paddingStart = if (it == 0) 8 else 0
                     )
                 )
