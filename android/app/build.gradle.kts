@@ -21,7 +21,7 @@ val keystoreFileName = "keystore.jks"
 val project = "Poehali"
 
 android {
-    compileSdk = 30
+    compileSdk = 31
     defaultConfig {
         applicationId = "com.qavan.app"
 
