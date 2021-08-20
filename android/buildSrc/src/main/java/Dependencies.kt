@@ -221,6 +221,7 @@ object Dependencies {
         private const val foundationLayout = "androidx.compose.foundation:foundation-layout:$composeVersion"
         private const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
         private const val accompanistFlowLayout = "com.google.accompanist:accompanist-flowlayout:$accompanistVersion"
+        private const val accompanistNavigationAnimation = "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
 
         val impl = listOf(
             compiler,
@@ -236,6 +237,7 @@ object Dependencies {
             foundationLayout,
             constraintLayout,
             accompanistFlowLayout,
+            accompanistNavigationAnimation,
         )
         val debugImpl = listOf(
             uiTooling,
