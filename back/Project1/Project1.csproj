@@ -13,6 +13,7 @@
     <PackageReference Include="Google.Apis" Version="1.54.0" />
     <PackageReference Include="Google.Apis.Core" Version="1.54.0" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.54.0.2414" />
+    <PackageReference Include="InstagramApiSharp" Version="1.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.9" />

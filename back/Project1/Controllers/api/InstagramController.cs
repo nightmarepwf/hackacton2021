@@ -3,30 +3,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.IO;
+using InstagramApiSharp.API;
+using InstagramApiSharp.API.Builder;
+using InstagramApiSharp.Classes;
+using InstagramApiSharp.Logger;
+using Project1.Models;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Project1.Controllers.api
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class DefaultController : ControllerBase
+    public class InstagramController : ControllerBase
     {
-        // GET: api/<DefaultController>
+        
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<bool> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await Instagram.ParseFollowers();
         }
 
-        // GET api/<DefaultController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/<DefaultController>
+
+
         [HttpPost]
         public void Post([FromBody] string value)
         {

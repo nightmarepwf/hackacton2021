@@ -1,22 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
-using Google.Apis.Upload;
-using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
-using Google.Apis.YouTube.v3.Data;
+
+
 
 namespace Project1.Controllers.api
 {
@@ -27,11 +15,11 @@ namespace Project1.Controllers.api
 
         // GET api/<DefaultController>/5
         [HttpGet()]
-        public async Task<List<SearchResult>> Get()
+        public async Task<List<channel>> Get()
         {
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
-                ApiKey = "AIzaSyCXzzGh7FprCwyzpTfWZgbUBIjTrWhhqLQ",
+                ApiKey = "",
                 ApplicationName = this.GetType().ToString()
             });
 
@@ -44,31 +32,31 @@ namespace Project1.Controllers.api
 
             var searchListResponse = await searchListRequest.ExecuteAsync();
 
-            List<string> videos = new List<string>();
-            List<SearchResult> channels = new List<SearchResult>();
-            List<string> playlists = new List<string>();
+
+            List<channel> channels = new List<channel>();
+
 
             // Add each result to the appropriate list, and then display the lists of
             // matching videos, channels, and playlists.
             foreach (var searchResult in searchListResponse.Items)
             {
-                switch (searchResult.Id.Kind)
-                {
-                    case "youtube#video":
-                        videos.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.VideoId));
-                        break;
-
-                    case "youtube#channel":
-                        channels.Add(searchResult);
-                        break;
-
-                    case "youtube#playlist":
-                        playlists.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.PlaylistId));
-                        break;
-                }
+                channel ch = new channel() {
+                    channelId = ""
+                };
+                channels.Add(ch);
+                
             }
 
             return channels;
+        }
+        public class channel
+        {
+            public string channelId { get; set; }
+            public string channelTitle { get; set; }
+            public string description { get; set; }
+            public string title { get; set; }
+            public string icon { get; set; }
+
         }
     }
        
