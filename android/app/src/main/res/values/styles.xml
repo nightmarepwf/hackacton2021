@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
@@ -7,10 +7,10 @@
         <item name="android:colorPrimary">@color/color_primary</item>
         <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
         <item name="android:colorControlNormal">@color/color_primary</item>
-        <item name="backgroundColor">@color/color_background</item>
+        <item name="backgroundColor">#121212</item>
 
-        <item name="android:windowBackground">@color/color_background</item>
-        <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:windowBackground">#121212</item>
+        <item name="android:statusBarColor">#121212</item>
         <item name="android:windowTranslucentStatus">false</item>
 
         <item name="android:windowActivityTransitions">true</item>

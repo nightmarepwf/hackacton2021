@@ -6,22 +6,9 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-private val LightColorPalette = lightColors(
-    surface = ColorLightSurface,
-    onSurface = ColorLightOnSurface,
-    primary = ColorLightPrimary,
-    secondary = ColorLightSecondary,
-    secondaryVariant = ColorLightSecondaryVariant,
-)
+private val LightColorPalette = lightColors()
 
-private val DarkColorPalette = darkColors(
-    surface = ColorDarkSurface,
-    onSurface = ColorDarkOnSurface,
-    primary = ColorDarkPrimary,
-    secondary = ColorDarkSecondary,
-    secondaryVariant = ColorDarkSecondaryVariant,
-)
-
+private val DarkColorPalette = darkColors()
 
 @Composable
 fun AppTheme(

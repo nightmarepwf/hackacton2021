@@ -18,17 +18,18 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qavan.app.compose.AppTextStyleBody
 import com.qavan.app.compose.AppTextStyleCaption
-import com.qavan.app.compose.ColorText
+import com.qavan.app.compose.AppTheme
 import com.qavan.app.compose.RubikMedium
 import com.qavan.app.compose.text.AppTextBody
 import com.qavan.app.compose.text.AppTextCaption
-import kotlinx.coroutines.launch
 import com.qavan.app.extensions.compose.alpha50
 import com.qavan.app.extensions.compose.disabled
+import kotlinx.coroutines.launch
 
 @Composable
 fun AppOutlinedTextField(
@@ -36,7 +37,7 @@ fun AppOutlinedTextField(
     value: String,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textColor: Color = ColorText,
+    textColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = if (value.isBlank()) AppTextStyleBody.copy(color = textColor, fontFamily = RubikMedium) else AppTextStyleBody.copy(color = textColor),
     label: String? = null,
     placeholder: String? = null,
@@ -49,27 +50,27 @@ fun AppOutlinedTextField(
     maxLines: Int = Int.MAX_VALUE,
     shape: Shape = RoundedCornerShape(30.dp),
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-        textColor = ColorText,
-        disabledTextColor = ColorText.disabled,
+        textColor = MaterialTheme.colors.primary,
+        disabledTextColor = MaterialTheme.colors.primary.disabled,
         backgroundColor = Color.Transparent,
-        cursorColor = ColorText,
+        cursorColor = MaterialTheme.colors.primary,
 //        errorCursorColor = ,
-        focusedBorderColor = ColorText,
-        unfocusedBorderColor = ColorText,
-        disabledBorderColor = ColorText.disabled,
+        focusedBorderColor = MaterialTheme.colors.primary,
+        unfocusedBorderColor = MaterialTheme.colors.primary,
+        disabledBorderColor = MaterialTheme.colors.primary.disabled,
 //        errorBorderColor = ,
 //        leadingIconColor = ,
 //        disabledLeadingIconColor = ,
 //        errorLeadingIconColor = ,
-        trailingIconColor = ColorText,
-        disabledTrailingIconColor = ColorText.disabled,
+        trailingIconColor = MaterialTheme.colors.primary,
+        disabledTrailingIconColor = MaterialTheme.colors.primary.disabled,
 //        errorTrailingIconColor = ,
-        focusedLabelColor = ColorText,
-        unfocusedLabelColor = ColorText,
-        disabledLabelColor = ColorText.disabled,
+        focusedLabelColor = MaterialTheme.colors.primary,
+        unfocusedLabelColor = MaterialTheme.colors.primary,
+        disabledLabelColor = MaterialTheme.colors.primary.disabled,
 //        errorLabelColor = ,
-        placeholderColor = ColorText.alpha50,
-        disabledPlaceholderColor = ColorText.alpha50.disabled,
+        placeholderColor = MaterialTheme.colors.primary.alpha50,
+        disabledPlaceholderColor = MaterialTheme.colors.primary.alpha50.disabled,
     ),
     onFocusChanged: (hasFocus: Boolean) -> Unit = {},
     onValueChange: (String) -> Unit,
@@ -169,7 +170,7 @@ fun AppOutlinedTextField(
                 .align(Alignment.TopStart),
             text = label.toString(),
             fontSize = labelFontSize.value.sp,
-            color = ColorText,
+            color = MaterialTheme.colors.primary,
         )
     }
 }
@@ -180,7 +181,7 @@ private fun AppOutlinedTextFieldImpl(
     value: String,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textColor: Color = ColorText,
+    textColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = when {
         value.isBlank() -> AppTextStyleBody.copy(color = textColor, fontFamily = RubikMedium)
         else -> AppTextStyleBody.copy(color = textColor)
@@ -195,27 +196,27 @@ private fun AppOutlinedTextFieldImpl(
     maxLines: Int = Int.MAX_VALUE,
     shape: Shape = RoundedCornerShape(30.dp),
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-        textColor = ColorText,
-        disabledTextColor = ColorText.disabled,
+        textColor = MaterialTheme.colors.primary,
+        disabledTextColor = MaterialTheme.colors.primary.disabled,
         backgroundColor = Color.Transparent,
-        cursorColor = ColorText,
+        cursorColor = MaterialTheme.colors.primary,
 //        errorCursorColor = ,
-        focusedBorderColor = ColorText,
-        unfocusedBorderColor = ColorText,
-        disabledBorderColor = ColorText.disabled,
+        focusedBorderColor = MaterialTheme.colors.primary,
+        unfocusedBorderColor = MaterialTheme.colors.primary,
+        disabledBorderColor = MaterialTheme.colors.primary.disabled,
 //        errorBorderColor = ,
 //        leadingIconColor = ,
 //        disabledLeadingIconColor = ,
 //        errorLeadingIconColor = ,
-        trailingIconColor = ColorText,
-        disabledTrailingIconColor = ColorText.disabled,
+        trailingIconColor = MaterialTheme.colors.primary,
+        disabledTrailingIconColor = MaterialTheme.colors.primary.disabled,
 //        errorTrailingIconColor = ,
-        focusedLabelColor = ColorText,
-        unfocusedLabelColor = ColorText,
-        disabledLabelColor = ColorText.disabled,
+        focusedLabelColor = MaterialTheme.colors.primary,
+        unfocusedLabelColor = MaterialTheme.colors.primary,
+        disabledLabelColor = MaterialTheme.colors.primary.disabled,
 //        errorLabelColor = ,
-        placeholderColor = ColorText.alpha50,
-        disabledPlaceholderColor = ColorText.alpha50.disabled,
+        placeholderColor = MaterialTheme.colors.primary.alpha50,
+        disabledPlaceholderColor = MaterialTheme.colors.primary.alpha50.disabled,
     ),
     onValueChange: (String) -> Unit,
 ) {
@@ -232,7 +233,7 @@ private fun AppOutlinedTextFieldImpl(
             AppTextBody(
                 modifier = Modifier.fillMaxWidth(),
                 text = placeholder,
-                color = ColorText.alpha50,
+                color = MaterialTheme.colors.primary.alpha50,
             )
         },
         trailingIcon = trailingIcon,
@@ -246,4 +247,19 @@ private fun AppOutlinedTextFieldImpl(
         colors = colors,
         onValueChange = onValueChange,
     )
+}
+
+@Preview(widthDp = 120)
+@Composable
+fun AppButtonsPreview() {
+    AppTheme(true) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            AppOutlinedTextField(value = "") {}
+            Spacer(modifier = Modifier.height(8.dp))
+            AppOutlinedTextField(value = "Value") {}
+        }
+    }
 }

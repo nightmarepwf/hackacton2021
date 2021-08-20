@@ -12,10 +12,11 @@ import com.qavan.app.R
 
 val Default = FontFamily(
     Font(R.font.nunito_regular, FontWeight.Normal, FontStyle.Normal),
+    Font(R.font.nunito_semi_bold, FontWeight.SemiBold, FontStyle.Normal),
 )
 
 val RubikMedium = FontFamily(
-    Font(R.font.rubik_medium, FontWeight.Medium, FontStyle.Normal),
+    Font(R.font.rubik_medium, FontWeight.SemiBold, FontStyle.Normal),
 )
 
 val AppTextStyleH1 = TextStyle(
@@ -66,9 +67,9 @@ val AppTextStyleCaption = TextStyle(
 // Set of Material typography styles to start with
 val typography = Typography(
     defaultFontFamily = Default,
-    h1 = AppTextStyleH1,
-    h2 = AppTextStyleH2,
-    subtitle1 = AppTextStyleSubheading,
-    body1 = AppTextStyleBody,
-    caption = AppTextStyleCaption,
+//    h1 = AppTextStyleH1,
+//    h2 = AppTextStyleH2,
+//    subtitle1 = AppTextStyleSubheading,
+//    body1 = AppTextStyleBody,
+//    caption = AppTextStyleCaption,
 )
