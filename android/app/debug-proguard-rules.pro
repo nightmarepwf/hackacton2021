@@ -1,0 +1,1 @@
+-keepattributes LocalVariableTable, LocalVariableTypeTable

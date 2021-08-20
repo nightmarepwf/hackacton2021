@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- region Common -->
+    <string name="app_name">Poehali</string>
+    <!-- endregion -->
+
+    <string name="transition_splash">transition_splash</string>
+
+</resources>

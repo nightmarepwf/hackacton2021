@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#3F51B5</color>
+
+    <color name="color_primary">#FF232323</color>
+    <color name="color_primary_dark">#000</color>
+    <color name="color_background">#FFDCDCDC</color>
+
+    <color name="blue_01">#C5DCFA</color>
+    <color name="blue_02">#8AB9F6</color>
+    <color name="blue_03">#5096F1</color>
+    <color name="blue_04">#1672EC</color>
+    <color name="blue_05">#0F56B3</color>
+    <color name="blue_06">#0A3977</color>
+
+    <color name="gray_01">#E0E0E0</color>
+    <color name="gray_02">#C0C0C0</color>
+    <color name="gray_03">#A1A1A1</color>
+    <color name="gray_04">#818181</color>
+    <color name="gray_05">#616161</color>
+    <color name="gray_06">#414141</color>
+
+    <color name="gray_01_transparent50">#80E0E0E0</color>
+    <color name="gray_01_transparent75">#BFE0E0E0</color>
+    <color name="gray_02_transparent50">#80C0C0C0</color>
+    <color name="gray_03_transparent50">#80A1A1A1</color>
+    <color name="gray_04_transparent50">#80818181</color>
+    <color name="gray_05_transparent50">#80616161</color>
+    <color name="gray_06_transparent50">#80414141</color>
+
+    <color name="green_01">#C5F2C7</color>
+    <color name="green_02">#8CE590</color>
+    <color name="green_03">#52D858</color>
+    <color name="green_04">#2AB930</color>
+    <color name="green_05">#1F8B24</color>
+    <color name="green_06">#155D18</color>
+
+    <color name="red_01">#FCD0CF</color>
+    <color name="red_02">#FAA09E</color>
+    <color name="red_03">#F7716E</color>
+    <color name="red_04">#F5413D</color>
+    <color name="red_05">#DA100B</color>
+    <color name="red_06">#910B08</color>
+
+    <color name="orange_01">#FBE5C9</color>
+    <color name="orange_02">#F6CA92</color>
+    <color name="orange_03">#F2B05C</color>
+    <color name="orange_04">#ED9526</color>
+    <color name="orange_05">#BF710F</color>
+    <color name="orange_06">#7F4C0A</color>
+
+    <color name="gray">#D5D5D5</color>
+    <color name="green">#43A047</color>
+    <color name="red">#FF1744</color>
+
+    <color name="shimmer_background">#D5D5D5</color>
+    <color name="shimmer_foreground">@android:color/darker_gray</color>
+</resources>

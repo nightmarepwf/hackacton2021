@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_item_search">450dp</dimen>
+
+    <dimen name="dialog_margin_vertical">@dimen/margin_72</dimen>
+    <dimen name="dialog_margin_horizontal">@dimen/margin_32</dimen>
+
+    <dimen name="size_large_button">@dimen/margin_64</dimen>
+
+    <dimen name="circle_menu_height">84dp</dimen>
+</resources>
