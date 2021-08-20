@@ -4,11 +4,11 @@ import com.qavan.app.base.activity.IDeviceProvider
 import com.qavan.app.base.oneshotevent.BaseOneShotEvent
 import com.qavan.app.base.viewstate.BaseViewState
 import com.qavan.app.data.source.local.DevicePreferencesDataSource
-import com.qavan.app.extensions.MVI
+import com.qavan.app.extensions.MVIOLD
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Suppress("KDocMissingDocumentation")
-abstract class BaseFragmentMVI<VS: BaseViewState, OSE: BaseOneShotEvent>: MVI<VS, OSE>(),
+abstract class BaseFragmentMVI<VS: BaseViewState, OSE: BaseOneShotEvent>: MVIOLD<VS, OSE>(),
     IDeviceProvider {
 
     abstract val devicePreferences: DevicePreferencesDataSource
