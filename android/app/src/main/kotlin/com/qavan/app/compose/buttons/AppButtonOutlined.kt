@@ -1,4 +1,4 @@
-package com.qavan.app.ui.compose.button
+package com.qavan.app.compose.buttons
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -30,6 +31,7 @@ fun AppButtonOutlined(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: AnnotatedString = buildAnnotatedString { append("Button") },
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = Default,
     shape: Shape = DefaultShape,
@@ -45,6 +47,7 @@ fun AppButtonOutlined(
         modifier = modifier,
         enabled = enabled,
         text = text,
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         shape = shape,
@@ -63,6 +66,7 @@ fun AppButtonOutlined(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String = "Button",
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = Default,
     shape: Shape = DefaultShape,
@@ -78,6 +82,7 @@ fun AppButtonOutlined(
         modifier = modifier,
         enabled = enabled,
         text = buildAnnotatedString { append(text) },
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         shape = shape,
@@ -96,6 +101,7 @@ fun AppButtonOutlinedAction(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: AnnotatedString = buildAnnotatedString { append("Button") },
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = RubikMedium,
     shape: Shape = DefaultShape,
@@ -111,6 +117,7 @@ fun AppButtonOutlinedAction(
         modifier = modifier,
         enabled = enabled,
         text = text,
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         shape = shape,
@@ -129,6 +136,7 @@ fun AppButtonOutlinedAction(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String = "Button",
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = RubikMedium,
     shape: Shape = DefaultShape,
@@ -144,6 +152,7 @@ fun AppButtonOutlinedAction(
         modifier = modifier,
         enabled = enabled,
         text = buildAnnotatedString { append(text) },
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         shape = shape,
@@ -162,6 +171,7 @@ private fun AppButtonOutlinedImpl(
     modifier: Modifier = Modifier,
     enabled: Boolean,
     text: AnnotatedString,
+    textFontWeight: FontWeight,
     textFontSize: TextUnit,
     textFontFamily: FontFamily,
     shape: Shape,
@@ -191,6 +201,7 @@ private fun AppButtonOutlinedImpl(
         AppTextBody(
             modifier = Modifier.fillMaxWidth(),
             text = text,
+            fontWeight = textFontWeight,
             fontSize = textFontSize,
             fontFamily = textFontFamily,
             color = borderColor,
@@ -203,7 +214,7 @@ private fun AppButtonOutlinedImpl(
 
 @Preview(widthDp = 373)
 @Composable
-fun AppButtonsPreview() {
+private fun AppButtonsOutlinedPreview() {
     AppTheme(true) {
         Column(
             modifier = Modifier.fillMaxWidth(),

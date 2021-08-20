@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
@@ -29,6 +30,7 @@ fun AppButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: AnnotatedString = buildAnnotatedString { append("Button") },
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = Default,
     shape: Shape = DefaultShape,
@@ -45,6 +47,7 @@ fun AppButton(
         modifier = modifier,
         enabled = enabled,
         text = text,
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         shape = shape,
@@ -64,6 +67,7 @@ fun AppButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String = "Button",
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = Default,
     shape: Shape = DefaultShape,
@@ -79,10 +83,11 @@ fun AppButton(
     AppButtonImpl(
         modifier = modifier,
         enabled = enabled,
-        text = buildAnnotatedString { append(text) },
         shape = shape,
         buttonColor = buttonColor,
+        text = buildAnnotatedString { append(text) },
         textColor = textColor,
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         border = border,
@@ -99,6 +104,7 @@ fun AppButtonAction(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: AnnotatedString = buildAnnotatedString { append("Button") },
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = RubikMedium,
     shape: Shape = DefaultShape,
@@ -114,10 +120,11 @@ fun AppButtonAction(
     AppButtonImpl(
         modifier = modifier,
         enabled = enabled,
-        text = text,
         shape = shape,
         buttonColor = buttonColor,
+        text = text,
         textColor = textColor,
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         border = border,
@@ -134,6 +141,7 @@ fun AppButtonAction(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String = "Button",
+    textFontWeight: FontWeight = FontWeight.SemiBold,
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = RubikMedium,
     shape: Shape = DefaultShape,
@@ -149,10 +157,11 @@ fun AppButtonAction(
     AppButtonImpl(
         modifier = modifier,
         enabled = enabled,
-        text = buildAnnotatedString { append(text) },
         shape = shape,
         buttonColor = buttonColor,
+        text = buildAnnotatedString { append(text) },
         textColor = textColor,
+        textFontWeight = textFontWeight,
         textFontSize = textFontSize,
         textFontFamily = textFontFamily,
         border = border,
@@ -168,9 +177,10 @@ fun AppButtonAction(
 private fun AppButtonImpl(
     modifier: Modifier = Modifier,
     enabled: Boolean,
-    text: AnnotatedString,
     shape: Shape,
     buttonColor: Color,
+    text: AnnotatedString,
+    textFontWeight: FontWeight,
     textColor: Color,
     textFontSize: TextUnit,
     textFontFamily: FontFamily,
@@ -201,6 +211,7 @@ private fun AppButtonImpl(
             text = text,
             fontSize = textFontSize,
             fontFamily = textFontFamily,
+            fontWeight = textFontWeight,
             color = textColor,
             letterSpacing = textLetterSpacing,
             lineHeight = lineHeight,
@@ -211,7 +222,7 @@ private fun AppButtonImpl(
 
 @Preview(widthDp = 373)
 @Composable
-fun AppButtonsPreview() {
+private fun AppButtonsPreview() {
     AppTheme(true) {
         Column(
             modifier = Modifier.fillMaxWidth(),
