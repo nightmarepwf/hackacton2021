@@ -1,12 +1,12 @@
 package com.qavan.app.compose.buttons
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -14,10 +14,14 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.qavan.app.compose.*
+import com.qavan.app.compose.AppTheme
+import com.qavan.app.compose.Default
+import com.qavan.app.compose.DefaultShape
+import com.qavan.app.compose.RubikMedium
 import com.qavan.app.compose.text.AppTextBody
 
 @Composable
@@ -28,8 +32,8 @@ fun AppButton(
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = Default,
     shape: Shape = DefaultShape,
-    buttonColor: Color = if (isSystemInDarkTheme()) ColorDarkSecondary else ColorLightSecondary,
-    textColor: Color = if (isSystemInDarkTheme()) ColorDarkOnSurface else ColorLightOnSurface,
+    buttonColor: Color = MaterialTheme.colors.surface,
+    textColor: Color = MaterialTheme.colors.primary,
     border: BorderStroke? = null,
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 15.dp),
     textLetterSpacing: TextUnit = (0.5f).sp,
@@ -63,8 +67,8 @@ fun AppButton(
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = Default,
     shape: Shape = DefaultShape,
-    buttonColor: Color = if (isSystemInDarkTheme()) ColorDarkSecondary else ColorLightSecondary,
-    textColor: Color = if (isSystemInDarkTheme()) ColorDarkOnSurface else ColorLightOnSurface,
+    buttonColor: Color = MaterialTheme.colors.surface,
+    textColor: Color = MaterialTheme.colors.primary,
     border: BorderStroke? = null,
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 15.dp),
     textLetterSpacing: TextUnit = (0.5f).sp,
@@ -98,8 +102,8 @@ fun AppButtonAction(
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = RubikMedium,
     shape: Shape = DefaultShape,
-    buttonColor: Color = if (isSystemInDarkTheme()) ColorDarkSecondary else ColorLightSecondary,
-    textColor: Color = if (isSystemInDarkTheme()) ColorDarkOnSurface else ColorLightOnSurface,
+    buttonColor: Color = MaterialTheme.colors.surface,
+    textColor: Color = MaterialTheme.colors.primary,
     border: BorderStroke? = null,
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
     textLetterSpacing: TextUnit = TextUnit.Unspecified,
@@ -133,8 +137,8 @@ fun AppButtonAction(
     textFontSize: TextUnit = 14.sp,
     textFontFamily: FontFamily = RubikMedium,
     shape: Shape = DefaultShape,
-    buttonColor: Color = if (isSystemInDarkTheme()) ColorDarkSecondary else ColorLightSecondary,
-    textColor: Color = if (isSystemInDarkTheme()) ColorDarkOnSurface else ColorLightOnSurface,
+    buttonColor: Color = MaterialTheme.colors.surface,
+    textColor: Color = MaterialTheme.colors.primary,
     border: BorderStroke? = null,
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
     textLetterSpacing: TextUnit = TextUnit.Unspecified,
@@ -202,5 +206,26 @@ private fun AppButtonImpl(
             lineHeight = lineHeight,
             textAlign = textAlign,
         )
+    }
+}
+
+@Preview(widthDp = 373)
+@Composable
+fun AppButtonsPreview() {
+    AppTheme(true) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            AppButton(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Button",
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            AppButtonAction(
+                modifier = Modifier.wrapContentWidth(),
+                text = "Act",
+            )
+        }
     }
 }

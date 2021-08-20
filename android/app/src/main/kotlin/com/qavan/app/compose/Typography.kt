@@ -66,9 +66,9 @@ val AppTextStyleCaption = TextStyle(
 // Set of Material typography styles to start with
 val typography = Typography(
     defaultFontFamily = Default,
-    h1 = AppTextStyleH1,
-    h2 = AppTextStyleH2,
-    subtitle1 = AppTextStyleSubheading,
-    body1 = AppTextStyleBody,
-    caption = AppTextStyleCaption,
+//    h1 = AppTextStyleH1,
+//    h2 = AppTextStyleH2,
+//    subtitle1 = AppTextStyleSubheading,
+//    body1 = AppTextStyleBody,
+//    caption = AppTextStyleCaption,
 )
