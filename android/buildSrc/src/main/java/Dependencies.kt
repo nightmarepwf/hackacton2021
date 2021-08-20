@@ -220,6 +220,7 @@ object Dependencies {
         private const val foundation = "androidx.compose.foundation:foundation:$composeVersion"
         private const val foundationLayout = "androidx.compose.foundation:foundation-layout:$composeVersion"
         private const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
+        private const val paging = "androidx.paging:paging-compose:1.0.0-alpha12"
         private const val accompanistFlowLayout = "com.google.accompanist:accompanist-flowlayout:$accompanistVersion"
         private const val accompanistNavigationAnimation = "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
 
@@ -236,6 +237,7 @@ object Dependencies {
             foundation,
             foundationLayout,
             constraintLayout,
+            paging,
             accompanistFlowLayout,
             accompanistNavigationAnimation,
         )

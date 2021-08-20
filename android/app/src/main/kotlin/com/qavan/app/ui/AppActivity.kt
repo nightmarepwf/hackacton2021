@@ -3,12 +3,14 @@ package com.qavan.app.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -18,11 +20,15 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.qavan.app.compose.AppTheme
 import com.qavan.app.data.source.local.DevicePreferencesDataSource
+import com.qavan.app.manager.ToastManager
+import com.qavan.app.ui.screens.events.EventMVI
+import com.qavan.app.ui.screens.events.EventScreen
 import com.qavan.app.ui.screens.launch.LaunchMVI
 import com.qavan.app.ui.screens.launch.LaunchScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,10 +38,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AppActivity: ComponentActivity() {
 
-    private var initialScreenName = Route.Launch.name
+    private var initialScreenName = Route.Events.name
 
     @Inject
     lateinit var devicePreferences: DevicePreferencesDataSource
+
+    @Inject
+    lateinit var toastManager: ToastManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +76,21 @@ class AppActivity: ComponentActivity() {
                     },
                 )
             }
+            screen(Route.Events, screenWidth) {
+                val mvi: EventMVI = viewModel()
+                val state by mvi.uiState.collectAsState()
+                val events = mvi.events.collectAsLazyPagingItems()
+                EventScreen(
+                    state = state.state,
+                    events = events,
+                    onCreateEventClick = {
+
+                    },
+                    onEventClick = { event ->
+
+                    },
+                )
+            }
         }
     }
 
@@ -77,6 +101,7 @@ class AppActivity: ComponentActivity() {
         return viewModel(
             viewModelStoreOwner = requireNotNull(LocalViewModelStoreOwner.current),
             key = key,
+            factory = defaultViewModelProviderFactory,
         )
     }
 
