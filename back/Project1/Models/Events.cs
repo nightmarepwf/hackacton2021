@@ -48,15 +48,19 @@ namespace Project1.Models
         }
         public static bool SyncBlogers(List<bloger> blogers, string id, event_value evt)
         {
+            string url = "http://0a49-195-209-251-111.ngrok.io/Confirm/";
             foreach (bloger usr in blogers)
             {
+                Guid g = Guid.NewGuid();
                 SqlParameter[] dbParams = new SqlParameter[]
 {
         new SqlParameter("@event_id", id),
-        new SqlParameter("@bloger_id", usr.ID)
+        new SqlParameter("@bloger_id", usr.ID),
+        new SqlParameter("@guid", g)
 };
+                
                 DataProvider.executeProcedure("dbo.sync_user_for_event", dbParams);
-                //Instagram.SendMessage(usr.instagram,"Приглашаем вас на мероприятие "+ evt.title) ;
+                //Instagram.SendMessage(usr.instagram,"Приглашаем вас на мероприятие "+ evt.title+"\r\n Ссылка на мероприятие: "+ url+g) ;
             }
             return true;
         }
@@ -109,6 +113,42 @@ namespace Project1.Models
 
             return true;
         }
+
+        public static object GetEvent(string guid)
+        {
+
+
+
+            SqlParameter[] dbParams = new SqlParameter[]
+{
+            new SqlParameter("@guid", guid)
+};
+
+
+            var id = DataProvider.executeProcedure("dbo.get_event_id_by_guid", dbParams)?.Tables?[0];
+            object result = GetList(id.Rows[0][0].ToString());
+
+            return result;
+        }
+        public static object SetConfirm(std confirm)
+        {
+
+
+
+            SqlParameter[] dbParams = new SqlParameter[]
+{
+            new SqlParameter("@guid", confirm.guid),
+            new SqlParameter("@status", confirm.status)
+};
+
+
+            DataProvider.executeProcedure("dbo.set_confirm", dbParams);
+
+
+            return true;
+        }
+
+
     }
 
     public class bloger
@@ -146,5 +186,11 @@ namespace Project1.Models
         public DataTable tags;
         public DataTable mentions;
         public DataTable blogers;
+    }
+
+    public class std
+    {
+        public string guid;
+        public string status;
     }
 }
