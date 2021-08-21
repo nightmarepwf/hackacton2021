@@ -5,12 +5,15 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -19,16 +22,23 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NamedNavArgument
+import androidx.navigation.compose.NavHost
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.pagerTabIndicatorOffset
+import com.google.accompanist.pager.rememberPagerState
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
 import com.qavan.app.compose.AppTheme
+import com.qavan.app.compose.text.AppTextSubtitle
 import com.qavan.app.data.source.local.DevicePreferencesDataSource
 import com.qavan.app.manager.ToastManager
 import com.qavan.app.ui.screens.LoginMVI
@@ -74,11 +84,117 @@ class AppActivity: AppCompatActivity() {
         }
     }
 
+    @OptIn(ExperimentalPagerApi::class)
     @Composable
     private fun Content() {
         val scope = rememberCoroutineScope()
         val screenWidth = with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.dp.toPx().toInt() }
-        val navController = rememberAnimatedNavController()
+        val pagerState = rememberPagerState(pageCount = 3)
+
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            TabRow(
+                // Our selected tab is our current page
+                selectedTabIndex = pagerState.currentPage,
+                backgroundColor = Color.Transparent,
+                // Override the indicator, using the provided pagerTabIndicatorOffset modifier
+                indicator = { tabPositions ->
+                    TabRowDefaults.Indicator(
+                        modifier = Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
+                        color = MaterialTheme.colors.primary,
+                    )
+                }
+            ) {
+                // Add tabs for all of our pages
+                repeat(pagerState.pageCount) {
+                    Tab(
+                        text = {
+                            AppTextSubtitle(
+                                text = when(it) {
+                                    0 -> "События"
+                                    1 -> "Блоггеры"
+                                    else -> "Контент"
+                                }
+                            )
+                        },
+                        selected = pagerState.currentPage == it,
+                        onClick = {
+                              scope.launch {
+                                  pagerState.animateScrollToPage(it)
+                              }
+                        },
+                    )
+                }
+            }
+            HorizontalPager(
+                modifier = Modifier.fillMaxSize(),
+                state = pagerState,
+            ) {
+                when(it) {
+                    0 -> {
+                        val navController = rememberAnimatedNavController()
+                        val mviEvents: EventMVI = viewModel()
+                        val state by mviEvents.uiState.collectAsState()
+                        val events = mviEvents.events.collectAsLazyPagingItems()
+                        AnimatedNavHost(navController = navController, startDestination = Route.Events.name) {
+                            screen(Route.Events, screenWidth) {
+                                EventScreen(
+                                    state = state.state,
+                                    events = events,
+                                    onCreateEventClick = {
+
+                                    },
+                                    onEventClick = {
+
+                                    },
+                                )
+                            }
+                        }
+                    }
+                    1 -> {
+                        val navController = rememberAnimatedNavController()
+                        val mviBloggers: BloggersMVI = viewModel()
+                        val state by mviBloggers.uiState.collectAsState()
+                        val bloggers = mviBloggers.bloggers.collectAsLazyPagingItems()
+                        val selectedBloggers by mviBloggers.selectedBloggers.collectAsState()
+                        AnimatedNavHost(navController = navController, startDestination = Route.Bloggers.name) {
+                            screen(Route.Bloggers, screenWidth) {
+                                BloggersScreen(
+                                    state = state.state,
+                                    bloggers = bloggers,
+                                    selectedBloggers = selectedBloggers,
+                                    onAddBloggerClick = {
+
+                                    },
+                                    onBloggerClick = { selected, blogger ->
+                                        mviBloggers.setEvent(
+                                            if (selected)
+                                                BloggersContract.Event.DeselectBlogger(blogger)
+                                            else
+                                                BloggersContract.Event.SelectBlogger(blogger)
+                                        )
+                                    }
+                                )
+                            }
+                        }
+
+                    }
+                    2 -> {
+                        val navController = rememberAnimatedNavController()
+
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun oldImpl(
+        navController: NavHostController,
+        screenWidth: Int,
+    ) {
+        val scope = rememberCoroutineScope()
         val mviLaunch: LaunchMVI = viewModel()
         val mviEvent: EventMVI = viewModel()
         val mviCreate: CreateMVI = viewModel()

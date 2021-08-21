@@ -3,12 +3,11 @@ package com.qavan.app.data.source.remote
 import androidx.paging.PagingState
 import com.qavan.app.data.constants.BASE_URL
 import com.qavan.app.data.model.Event
-import com.qavan.app.extensions.millisecondsFromIso
+import com.qavan.app.extensions.date
 import io.ktor.client.*
 import kotlinx.coroutines.delay
 import kotlinx.serialization.json.Json
-import java.text.SimpleDateFormat
-import java.util.*
+import timber.log.Timber
 
 class EventsDataSource(
     override val json: Json,
@@ -33,14 +32,14 @@ class EventsDataSource(
                 nextKey = nextPageNumber + 1
             )
         } catch (e: Throwable) {
+            Timber.e(e)
             LoadResult.Error(e)
         }
     }
 
     private suspend fun getEvents(page: Int, count: Int): List<Event> {
-        val dateFormat = SimpleDateFormat("HH:mm dd.MM.yyyy")
         return getAndDeserialize<List<Event>>("${BASE_URL}/Events").map {
-            it.copy(event_date_formatted = dateFormat.format(Date(it.event_date.millisecondsFromIso)))
+            it.copy(event_date_formatted = it.event_date_formatted.date)
         }
     }
 }

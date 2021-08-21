@@ -36,6 +36,7 @@ class BloggersDataSource(
                 nextKey = nextPageNumber + 1
             )
         } catch (e: Throwable) {
+            Timber.e(e)
             LoadResult.Error(e)
         }
     }

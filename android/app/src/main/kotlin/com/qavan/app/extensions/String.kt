@@ -29,5 +29,5 @@ fun String.times(count: Int, separator: String = String.EMPTY): String {
 inline val String.isEmail: Boolean
     get() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-inline val String.millisecondsFromIso: Long
-    get() = ISO8601Utils.parse(this, ParsePosition(0)).time
+inline val String.date: String
+    get() = split("T").joinToString(separator = ", ")

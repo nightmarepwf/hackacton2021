@@ -6,4 +6,5 @@ enum class Route {
     Events,
     Create,
     Bloggers,
+    Main,
 }

@@ -10,4 +10,4 @@ val shapes = Shapes(
     large = RoundedCornerShape(4.dp)
 )
 
-val DefaultShape = RoundedCornerShape(30.dp)
+val DefaultShape = RoundedCornerShape(5.dp)

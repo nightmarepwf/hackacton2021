@@ -225,6 +225,8 @@ object Dependencies {
         private const val paging = "androidx.paging:paging-compose:1.0.0-alpha12"
         private const val accompanistFlowLayout = "com.google.accompanist:accompanist-flowlayout:$accompanistVersion"
         private const val accompanistNavigationAnimation = "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
+        private const val accompanistPager = "com.google.accompanist:accompanist-pager:$accompanistVersion"
+        private const val accompanistPagerIndicator = "com.google.accompanist:accompanist-pager-indicators:$accompanistVersion"
 
         val impl = listOf(
             compiler,
@@ -242,6 +244,8 @@ object Dependencies {
             paging,
             accompanistFlowLayout,
             accompanistNavigationAnimation,
+            accompanistPager,
+            accompanistPagerIndicator,
         )
         val debugImpl = listOf(
             uiTooling,
