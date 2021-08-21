@@ -65,6 +65,7 @@ object Dependencies {
         private const val ae = "com.tunjid.androidx:core:1.3.2"
         private const val prefetchViewPoolCore = "com.github.vivid-money.prefetchviewpool:prefetchviewpool-core:1.0.0"
         private const val prefetchViewPoolCoroutines = "com.github.vivid-money.prefetchviewpool:prefetchviewpool-coroutines:1.0.0"
+        private const val gson = "com.google.code.gson:gson:2.8.8"
 
         val impl = listOf(
             timber,
@@ -74,6 +75,7 @@ object Dependencies {
             ae,
             prefetchViewPoolCore,
             prefetchViewPoolCoroutines,
+            gson,
         )
     }
 

@@ -53,7 +53,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AppActivity: AppCompatActivity() {
 
-    private var initialScreenName = Route.Bloggers.name
+    private var initialScreenName = Route.Events.name
 
     @Inject
     lateinit var devicePreferences: DevicePreferencesDataSource

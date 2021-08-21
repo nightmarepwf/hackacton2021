@@ -1,25 +1,20 @@
 package com.qavan.app.ui.items
 
-import androidx.compose.compiler.plugins.kotlin.ComposeFqNames.remember
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qavan.app.compose.AppTheme
 import com.qavan.app.compose.text.AppTextBody
-import com.qavan.app.compose.text.AppTextH2
 import com.qavan.app.compose.text.AppTextSubtitle
 import com.qavan.app.data.model.Event
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Composable
 fun ItemEvent(
@@ -27,9 +22,6 @@ fun ItemEvent(
     event: Event,
     onEventClick: (Event) -> Unit = {},
 ) {
-    val dateTime = remember {
-        SimpleDateFormat("HH:mm dd.MM.yyyy").format(Date(event.timestamp))
-    }
     Column(
         modifier = modifier
             .border(1.dp, MaterialTheme.colors.primary, RoundedCornerShape(8.dp))
@@ -40,16 +32,18 @@ fun ItemEvent(
             .padding(8.dp),
     ) {
         AppTextSubtitle(
-            text = event.title
+            text = event.title,
         )
         AppTextBody(
-            text = event.description
+            text = event.event_description,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
         )
         AppTextBody(
-            text = dateTime
+            text = event.event_date_formatted,
         )
         AppTextBody(
-            text = "${event.participantsCount} участника(ов)"
+            text = "${event.event_participant_count} участника(ов)",
         )
     }
 }

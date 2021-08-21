@@ -1,6 +1,8 @@
 package com.qavan.app.extensions
 
 import android.util.Patterns
+import com.google.gson.internal.bind.util.ISO8601Utils
+import java.text.ParsePosition
 
 inline val String.Companion.EMPTY: String
     get() = ""
@@ -26,3 +28,6 @@ fun String.times(count: Int, separator: String = String.EMPTY): String {
 
 inline val String.isEmail: Boolean
     get() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+inline val String.millisecondsFromIso: Long
+    get() = ISO8601Utils.parse(this, ParsePosition(0)).time

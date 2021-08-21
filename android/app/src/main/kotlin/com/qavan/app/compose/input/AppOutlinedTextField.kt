@@ -124,8 +124,7 @@ fun AppOutlinedTextField(
                                 scope.launch { paddingStart.animateTo(12f) }
                                 scope.launch { labelBackgroundAlpha.animateTo(0f) }
                                 scope.launch { labelFontSize.animateTo(14f) }
-                            }
-                            else {
+                            } else {
                                 scope.launch { paddingTop.animateTo(0f) }
                                 scope.launch { paddingStart.animateTo(31f) }
                                 scope.launch { labelBackgroundAlpha.animateTo(1f) }
@@ -139,7 +138,10 @@ fun AppOutlinedTextField(
             enabled = enabled,
             readOnly = readOnly,
             textStyle = textStyle,
-            placeholder = buildAnnotatedString { append(placeholder.toString()) },
+            placeholder = when (placeholder) {
+                null -> null
+                else -> buildAnnotatedString { append(placeholder) }
+            },
             trailingIcon = trailingIcon,
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
@@ -150,28 +152,30 @@ fun AppOutlinedTextField(
             colors = colors,
             onValueChange = onValueChange
         )
-        AppTextCaption(
-            modifier = Modifier
-                .wrapContentWidth()
-                .wrapContentHeight()
-                .padding(
-                    start = paddingStart.value.dp,
-                    end = 0.dp,
-                    top = paddingTop.value.dp,
-                    bottom = 0.dp
-                )
-                .background(MaterialTheme.colors.surface.copy(alpha = labelBackgroundAlpha.value))
-                .padding(
-                    start = 4.dp,
-                    end = 4.dp,
-                    top = 0.dp,
-                    bottom = 0.dp
-                )
-                .align(Alignment.TopStart),
-            text = label.toString(),
-            fontSize = labelFontSize.value.sp,
-            color = MaterialTheme.colors.primary,
-        )
+        if (label != null) {
+            AppTextCaption(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .wrapContentHeight()
+                    .padding(
+                        start = paddingStart.value.dp,
+                        end = 0.dp,
+                        top = paddingTop.value.dp,
+                        bottom = 0.dp
+                    )
+                    .background(MaterialTheme.colors.surface.copy(alpha = labelBackgroundAlpha.value))
+                    .padding(
+                        start = 4.dp,
+                        end = 4.dp,
+                        top = 0.dp,
+                        bottom = 0.dp
+                    )
+                    .align(Alignment.TopStart),
+                text = label.toString(),
+                fontSize = labelFontSize.value.sp,
+                color = MaterialTheme.colors.primary,
+            )
+        }
     }
 }
 
@@ -186,7 +190,7 @@ private fun AppOutlinedTextFieldImpl(
         value.isBlank() -> AppTextStyleBody.copy(color = textColor, fontFamily = RubikMedium)
         else -> AppTextStyleBody.copy(color = textColor)
     },
-    placeholder: AnnotatedString = buildAnnotatedString {  },
+    placeholder: AnnotatedString? = buildAnnotatedString {  },
     trailingIcon: @Composable (() -> Unit)? = null,
 //    isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -230,11 +234,13 @@ private fun AppOutlinedTextFieldImpl(
             Surface {}
         },
         placeholder = {
-            AppTextBody(
-                modifier = Modifier.fillMaxWidth(),
-                text = placeholder,
-                color = MaterialTheme.colors.primary.alpha50,
-            )
+            if (placeholder != null) {
+                AppTextBody(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = placeholder,
+                    color = MaterialTheme.colors.primary.alpha50,
+                )
+            }
         },
         trailingIcon = trailingIcon,
 //        isError = isError,
