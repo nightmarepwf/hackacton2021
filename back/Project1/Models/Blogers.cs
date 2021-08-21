@@ -21,15 +21,15 @@ namespace Project1.Models
         {
             SqlParameter[] dbParams = new SqlParameter[]
 {
-        new SqlParameter("@title", value_obj.u_name),
-        new SqlParameter("@title", value_obj.u_soname),
-        new SqlParameter("@title", value_obj.u_otch),
-        new SqlParameter("@title", value_obj.email),
-        new SqlParameter("@title", value_obj.instagram),
-        new SqlParameter("@title", value_obj.youtube),
-        new SqlParameter("@title", value_obj.date_last_reject)
+        new SqlParameter("@u_name", value_obj.u_name),
+        new SqlParameter("@u_soname", value_obj.u_soname),
+        new SqlParameter("@u_otch", value_obj.u_otch),
+        new SqlParameter("@email", value_obj.email),
+        new SqlParameter("@instagram", value_obj.instagram),
+        new SqlParameter("@youtube", value_obj.youtube),
+        new SqlParameter("@date_last_reject", value_obj.date_last_reject)
 };
-            DataProvider.executeProcedure("dbo.create_blogers",dbParams);
+            DataProvider.executeProcedure("dbo.create_bloger",dbParams);
 
             return true;
         }
@@ -39,10 +39,10 @@ namespace Project1.Models
     {
         public string u_name,
  u_soname,
- u_otch,
+ u_otch="",
  email,
  instagram,
- youtube,
- date_last_reject;
+ youtube="",
+ date_last_reject = "";
     }
 }

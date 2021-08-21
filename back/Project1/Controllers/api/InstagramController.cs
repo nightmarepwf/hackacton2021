@@ -9,6 +9,9 @@ using InstagramApiSharp.API.Builder;
 using InstagramApiSharp.Classes;
 using InstagramApiSharp.Logger;
 using Project1.Models;
+using Newtonsoft.Json;
+using System.Net;
+using System.Text;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Project1.Controllers.api
@@ -18,32 +21,25 @@ namespace Project1.Controllers.api
     [ApiController]
     public class InstagramController : ControllerBase
     {
-        
 
         [HttpGet]
-        public async Task<bool> Get()
+        public async Task<object> Get([FromBody] string value)
         {
-            return await Instagram.GetUserFullInfoByName("noch4009");
+            var user = JsonConvert.DeserializeObject<userDesc>(value)?.user;
+            return JsonConvert.SerializeObject(await Instagram.GetUserFullInfoByName(user));
         }
 
 
-
-
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<DefaultController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<DefaultController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpPost]
+        public  object Post([FromBody] string value)
+        {
+            
+            return  Instagram.ParseByWords(); 
+            
+        }
+    }
+    public class userDesc
+    {
+        public string user;
     }
 }
