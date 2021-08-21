@@ -2,29 +2,26 @@ package com.qavan.app.data.source.remote
 
 import androidx.paging.PagingState
 import com.qavan.app.data.constants.BASE_URL
-import com.qavan.app.data.model.Blogger
+import com.qavan.app.data.model.BloggersResponse
+import com.qavan.app.data.model.IBlogger
 import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.request.*
-import io.ktor.http.*
 import kotlinx.coroutines.delay
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 
 class BloggersDataSource(
     override val json: Json,
     override val httpClient: HttpClient,
-): BasePagingRemoteDataSource<Blogger>() {
+): BasePagingRemoteDataSource<IBlogger>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Blogger>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, IBlogger>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Blogger> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, IBlogger> {
         return try {
             delay(700)
             val nextPageNumber = params.key ?: 1
@@ -41,7 +38,8 @@ class BloggersDataSource(
         }
     }
 
-    private suspend fun getBloggers(page: Int, count: Int): List<Blogger> {
-        return getAndDeserialize("${BASE_URL}/Blogers")
+    private suspend fun getBloggers(page: Int, count: Int): List<IBlogger> {
+        val response = getAndDeserialize<BloggersResponse>("${BASE_URL}/Blogers")
+        return (response.oldBloggers.sortedByDescending { it.rating } + (response.newBloggers?.users ?: emptyList()))
     }
 }

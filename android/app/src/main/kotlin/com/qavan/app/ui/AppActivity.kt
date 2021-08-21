@@ -95,10 +95,8 @@ class AppActivity: AppCompatActivity() {
             modifier = Modifier.fillMaxSize()
         ) {
             TabRow(
-                // Our selected tab is our current page
                 selectedTabIndex = pagerState.currentPage,
                 backgroundColor = Color.Transparent,
-                // Override the indicator, using the provided pagerTabIndicatorOffset modifier
                 indicator = { tabPositions ->
                     TabRowDefaults.Indicator(
                         modifier = Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
@@ -106,7 +104,6 @@ class AppActivity: AppCompatActivity() {
                     )
                 }
             ) {
-                // Add tabs for all of our pages
                 repeat(pagerState.pageCount) {
                     Tab(
                         text = {
@@ -134,6 +131,7 @@ class AppActivity: AppCompatActivity() {
             HorizontalPager(
                 modifier = Modifier.fillMaxSize(),
                 state = pagerState,
+                dragEnabled = false,
             ) {
                 when(it) {
                     0 -> {
@@ -166,6 +164,7 @@ class AppActivity: AppCompatActivity() {
                             screen(Route.Bloggers, screenWidth) {
                                 BloggersScreen(
                                     state = state.state,
+                                    checkable = false,
                                     bloggers = bloggers,
                                     selectedBloggers = selectedBloggers,
                                     onAddBloggerClick = {

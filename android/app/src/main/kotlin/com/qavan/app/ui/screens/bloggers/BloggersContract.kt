@@ -4,12 +4,13 @@ import com.qavan.app.base.mvi.UiEffect
 import com.qavan.app.base.mvi.UiEvent
 import com.qavan.app.base.mvi.UiState
 import com.qavan.app.data.model.Blogger
+import com.qavan.app.data.model.IBlogger
 
 class BloggersContract {
 
     sealed class Event: UiEvent {
-        data class SelectBlogger(val blogger: Blogger): Event()
-        data class DeselectBlogger(val blogger: Blogger): Event()
+        data class SelectBlogger(val blogger: IBlogger): Event()
+        data class DeselectBlogger(val blogger: IBlogger): Event()
     }
 
     data class State(

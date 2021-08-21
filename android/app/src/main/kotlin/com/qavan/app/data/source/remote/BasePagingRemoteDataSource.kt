@@ -15,7 +15,9 @@ abstract class BasePagingRemoteDataSource<T: Any>: PagingSource<Int, T>() {
         return json.decodeFromString(
             httpClient.get<String>(url)
                 .replace("]\"", "]")
+                .replace("}\"", "}")
                 .replace("\"[", "[")
+                .replace("\"{", "{")
                 .replace("\\\"","\"")
         )
     }
