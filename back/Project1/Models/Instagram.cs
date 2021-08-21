@@ -114,6 +114,7 @@ namespace Project1.Models
             if (!auth) return false;
             try
             {
+
                 var userFollowers = await InstaApi.UserProcessor
                             .GetUserFollowersAsync("noch4009", PaginationParameters.MaxPagesToLoad(1));
                
@@ -126,20 +127,20 @@ namespace Project1.Models
 
         }
 
-        public static async Task<bool> GetUserFullInfoByName(string name)
+        public static async Task<object> GetUserFullInfoByName(string name)
         {
             var auth = await Auth();
             if (!auth) return false;
             try
             {
                 var instUser = await InstaApi.UserProcessor.GetUserInfoByUsernameAsync(name);
-
+                return instUser;
             }
             catch (Exception e)
             {
                 return false;
             }
-            return true;
+
 
         }
 

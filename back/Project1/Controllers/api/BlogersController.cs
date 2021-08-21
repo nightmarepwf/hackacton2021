@@ -22,7 +22,7 @@ namespace Project1.Controllers.api
         public object Post([FromBody] string value)
         {
             bloger_value obj = JsonConvert.DeserializeObject<bloger_value>(value);
-            if (Blogers.CreateEvent(obj)) return Events.GetList();
+            if (Blogers.CreateEvent(obj)) return Blogers.GetList();
             return null;
         }
 
