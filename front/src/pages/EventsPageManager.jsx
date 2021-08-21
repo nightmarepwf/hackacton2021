@@ -48,12 +48,20 @@ class EventsPageManager extends Component {
             ...prevState, frame: <EventsListManager events={this.state.events}/>,
             bloggersList: bloggers
         }))
-        const res = await this.sendEvent()
-        console.log(res)
+        this.setLoading(true);
+        const event = await $api.post("Events", JSON.stringify({
+            title: this.state.eventInfo.title,
+            event_description: this.state.eventInfo.desc,
+            event_date: this.state.eventInfo.eventDate,
+            blogers: bloggers,
+            tags: this.state.eventInfo.tags
+        }), {headers: {"Content-Type": "text/plain"}});
+        this.setLoading(false)
+        console.log(event.data)
         this.setState(prevState => ({
-            ...prevState, events: res, frame: <EventsListManager events={res}/>
+            ...prevState, events: event.data, frame: <EventsListManager events={event.data}/>
         }))
-        return res
+        return event.data
     }
 
     setLoading(bool) {
@@ -68,7 +76,8 @@ class EventsPageManager extends Component {
             title: this.state.eventInfo.title,
             event_description: this.state.eventInfo.desc,
             event_date: this.state.eventInfo.eventDate,
-            // tags: this.state.eventInfo.tags
+            blogers: this.state.bloggersList,
+            tags: this.state.eventInfo.tags
         }), {headers: {"Content-Type": "text/plain"}});
         this.setLoading(false)
         return event.data
@@ -98,9 +107,8 @@ class EventsPageManager extends Component {
         }
         return (
             <div>
-                Страница событий для менеджера
-                <hr/>
-                <button onClick={this.createEventButtonHandler}>Создать событие</button>
+                <h3 className="pageTitle">Предстоящие события</h3>
+                <button className="primaryButton" style={{marginBottom: 20}} onClick={this.createEventButtonHandler}>Создать событие</button>
                 {this.state.frame}
             </div>
         );

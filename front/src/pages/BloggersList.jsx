@@ -6,7 +6,7 @@ class BloggersList extends Component {
     state = {
         isLoading: false,
         bloggers: [],
-        frame: <BloggersListFrame bloggers={[]} />
+        frame: <BloggersListFrame bloggers={[]} toAddBloggerFrame={this.toAddBloggerFrame} pageLoading={true}/>
     }
 
     setLoading(bool) {
@@ -15,15 +15,17 @@ class BloggersList extends Component {
         }))
     }
 
-    toAddBloggerFrame = () => {
+    toAddBloggerFrame = (bloggers) => {
         this.setState(prevState => ({
-            ...prevState, frame: <AddBloggerFrame />
+            ...prevState, frame: <AddBloggerFrame toBloggersList={this.toBloggersList}/>,
+            [bloggers]: bloggers
         }))
     }
 
     toBloggersList = () => {
         this.setState(prevState => ({
-            ...prevState, frame: <BloggersListFrame bloggers={[]} />
+            ...prevState,
+            frame: <BloggersListFrame bloggers={this.state.bloggers} toAddBloggerFrame={this.toAddBloggerFrame} pageLoading={this.state.isLoading}/>
         }))
     }
 
@@ -33,21 +35,25 @@ class BloggersList extends Component {
     }
 
     async componentDidMount() {
+        this.setLoading(true)
         const bloggers = await this.loadBloggers();
         console.log(bloggers)
         this.setState(prevState => ({
-            ...prevState, bloggers: []
+            ...prevState,
+            bloggers,
+            frame: <BloggersListFrame bloggers={bloggers} toAddBloggerFrame={this.toAddBloggerFrame} pageLoading={this.state.isLoading}/>
         }))
+        this.setLoading(false)
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (<div>Загрузка</div>)
+        }
         return (
             <>
-                <div>
-                    Список блоггеров
-                </div>
-                <hr />
-                <button onClick={this.toAddBloggerFrame}>Добавить в реестр вручную</button>
+                <h3 className="pageTitle">Список блоггеров</h3>
+
                 {this.state.frame}
             </>
         );
