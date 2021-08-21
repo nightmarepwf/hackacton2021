@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 60px;
+    background: white;
+    user-select: none;
+    margin-bottom: 30px;
+    padding: 10px 30px;
+}
+
+.main {
+    padding: 0 130px;
+}
+
