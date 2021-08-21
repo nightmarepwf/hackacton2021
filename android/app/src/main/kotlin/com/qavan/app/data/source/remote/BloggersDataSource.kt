@@ -1,27 +1,27 @@
 package com.qavan.app.data.source.remote
 
 import androidx.paging.PagingState
-import com.qavan.app.data.model.Event
+import com.qavan.app.data.model.Blogger
 import io.ktor.client.*
 import kotlinx.coroutines.delay
 
-class EventsDataSource(
+class BloggersDataSource(
     httpClient: HttpClient,
-): BasePagingRemoteDataSource<Event>(httpClient) {
+): BasePagingRemoteDataSource<Blogger>(httpClient) {
 
-    override fun getRefreshKey(state: PagingState<Int, Event>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Blogger>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Event> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Blogger> {
         return try {
             delay(700)
             val nextPageNumber = params.key ?: 1
             return LoadResult.Page(
-                data = getEvents(nextPageNumber, params.loadSize),
+                data = getBloggers(nextPageNumber, params.loadSize),
                 prevKey = null,
                 nextKey = nextPageNumber + 1
             )
@@ -30,12 +30,14 @@ class EventsDataSource(
         }
     }
 
-    private fun getEvents(page: Int, count: Int): List<Event> {
+    private fun getBloggers(page: Int, count: Int): List<Blogger> {
         return ((page - 1) * count .. page * count).map {
-            Event(
+            Blogger(
                 id = it,
-                title = "Event $it name",
-                description = "Event $it description",
+                name = "Noname $it",
+                instagram = "@instagram$it",
+                rating = (50..100).random() / 10f,
+                email = "blogger$it@qavan.xyz",
             )
         }
     }

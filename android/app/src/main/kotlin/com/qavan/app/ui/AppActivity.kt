@@ -30,6 +30,9 @@ import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALE
 import com.qavan.app.compose.AppTheme
 import com.qavan.app.data.source.local.DevicePreferencesDataSource
 import com.qavan.app.manager.ToastManager
+import com.qavan.app.ui.screens.bloggers.BloggersContract
+import com.qavan.app.ui.screens.bloggers.BloggersMVI
+import com.qavan.app.ui.screens.bloggers.BloggersScreen
 import com.qavan.app.ui.screens.create.CreateContract
 import com.qavan.app.ui.screens.create.CreateMVI
 import com.qavan.app.ui.screens.create.CreateScreen
@@ -45,7 +48,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AppActivity: AppCompatActivity() {
 
-    private var initialScreenName = Route.Create.name
+    private var initialScreenName = Route.Bloggers.name
 
     @Inject
     lateinit var devicePreferences: DevicePreferencesDataSource
@@ -74,6 +77,7 @@ class AppActivity: AppCompatActivity() {
         val mviLaunch: LaunchMVI = viewModel()
         val mviEvent: EventMVI = viewModel()
         val mviCreate: CreateMVI = viewModel()
+        val mviBloggers: BloggersMVI = viewModel()
         AnimatedNavHost(navController = navController, startDestination = initialScreenName) {
             screen(Route.Launch, screenWidth) {
                 val state = mviLaunch.uiState.collectAsState()
@@ -131,6 +135,24 @@ class AppActivity: AppCompatActivity() {
                     onBackClicked = {
                         onBackPressed()
                     },
+                )
+            }
+            screen(Route.Bloggers, screenWidth) {
+                val state by mviBloggers.uiState.collectAsState()
+                val bloggers = mviBloggers.bloggers.collectAsLazyPagingItems()
+                val selectedBloggers by mviBloggers.selectedBloggers.collectAsState()
+                BloggersScreen(
+                    state = state.state,
+                    bloggers = bloggers,
+                    selectedBloggers = selectedBloggers,
+                    onBloggerClick = { selected, blogger ->
+                        mviBloggers.setEvent(
+                            if (selected)
+                                BloggersContract.Event.DeselectBlogger(blogger)
+                            else
+                                BloggersContract.Event.SelectBlogger(blogger)
+                        )
+                    }
                 )
             }
         }

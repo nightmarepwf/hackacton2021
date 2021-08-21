@@ -1,7 +1,7 @@
 package com.qavan.app.di.module
 
+import com.qavan.app.data.source.remote.BloggersDataSource
 import com.qavan.app.data.source.remote.EventsDataSource
-import com.qavan.app.di.qualifiers.Remote
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +15,22 @@ object RemoteDataSourceModule {
 
     @Provides
     @Singleton
-    fun provideEventsDataSource(): EventsDataSource {
-        return EventsDataSource()
+    fun provideEventsDataSource(
+        httpClient: HttpClient,
+    ): EventsDataSource {
+        return EventsDataSource(
+            httpClient = httpClient,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideBloggersDataSource(
+        httpClient: HttpClient,
+    ): BloggersDataSource {
+        return BloggersDataSource(
+            httpClient = httpClient,
+        )
     }
 
 

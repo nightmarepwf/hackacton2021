@@ -15,7 +15,7 @@ class EventMVI @Inject constructor(
 
     val events by lazy {
         Pager(PagingConfig(pageSize = 10)) {
-            eventsRepository.eventsDataSource
+            eventsRepository.source
         }.flow.cachedIn(viewModelScope)
     }
 

@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.paging.PagingData
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import com.qavan.app.compose.AppTheme
@@ -18,8 +18,6 @@ import com.qavan.app.compose.LoadingBox
 import com.qavan.app.compose.buttons.AppButtonAction
 import com.qavan.app.data.model.Event
 import com.qavan.app.ui.items.ItemEvent
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.map
 
 
 @Composable
@@ -53,6 +51,13 @@ fun EventScreen(
                                 event = event,
                                 onEventClick = onEventClick,
                             )
+                        }
+                    }
+                    when {
+                        events.loadState.append is LoadState.Loading -> {
+                            item {
+                                Loading()
+                            }
                         }
                     }
                 }

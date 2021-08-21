@@ -4,4 +4,5 @@ enum class Route {
     Launch,
     Events,
     Create,
+    Bloggers,
 }
