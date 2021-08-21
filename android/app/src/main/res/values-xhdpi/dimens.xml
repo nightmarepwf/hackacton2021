@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_activity">@dimen/margin_32</dimen>
+
+    <dimen name="dialog_margin_vertical">@dimen/margin_72</dimen>
+    <dimen name="dialog_margin_horizontal">@dimen/margin_32</dimen>
+
+    <dimen name="size_large_button">@dimen/margin_64</dimen>
+
+    <dimen name="size_item_calendar_day">@dimen/margin_46</dimen>
+    <dimen name="size_item_hours">@dimen/margin_82</dimen>
+    <dimen name="size_item_search">@dimen/margin_310</dimen>
+
+    <dimen name="size_image_fab">@dimen/margin_68</dimen>
+
+    <dimen name="padding_horizontal_chevron">@dimen/margin_26</dimen>
+    <dimen name="padding_vertical_chevron">@dimen/margin_26</dimen>
+
+    <dimen name="circle_menu_height">64dp</dimen>
+</resources>
