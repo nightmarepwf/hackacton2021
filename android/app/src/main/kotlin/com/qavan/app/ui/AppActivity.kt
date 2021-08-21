@@ -115,7 +115,11 @@ class AppActivity: AppCompatActivity() {
                                     0 -> "События"
                                     1 -> "Блоггеры"
                                     else -> "Контент"
-                                }
+                                },
+                                color = if (pagerState.currentPage == it)
+                                    MaterialTheme.colors.primary
+                                else
+                                    MaterialTheme.colors.secondary,
                             )
                         },
                         selected = pagerState.currentPage == it,
