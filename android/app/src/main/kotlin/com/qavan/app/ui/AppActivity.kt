@@ -53,7 +53,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AppActivity: AppCompatActivity() {
 
-    private var initialScreenName = Route.Launch.name
+    private var initialScreenName = Route.Bloggers.name
 
     @Inject
     lateinit var devicePreferences: DevicePreferencesDataSource
@@ -176,6 +176,9 @@ class AppActivity: AppCompatActivity() {
                     state = state.state,
                     bloggers = bloggers,
                     selectedBloggers = selectedBloggers,
+                    onAddBloggerClick = {
+
+                    },
                     onBloggerClick = { selected, blogger ->
                         mviBloggers.setEvent(
                             if (selected)

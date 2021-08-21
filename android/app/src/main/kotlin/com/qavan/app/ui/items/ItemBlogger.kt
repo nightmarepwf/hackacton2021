@@ -37,16 +37,16 @@ fun ItemBlogger(
             onBloggerClick(blogger)
         }
         AppTextSubtitle(
-            text = blogger.name,
+            text = "${blogger.u_soname} ${blogger.u_name} ${blogger.u_otch}",
         )
         AppTextBody(
-            text = blogger.instagram,
+            text = blogger.instagram ?: "Instagram не указан",
         )
         AppTextBody(
-            text = blogger.rating.toString(),
+            text = blogger.youtube ?: "Youtube не указан",
         )
         AppTextBody(
-            text = blogger.email,
+            text = blogger.email ?: "Email не указан",
         )
     }
 }

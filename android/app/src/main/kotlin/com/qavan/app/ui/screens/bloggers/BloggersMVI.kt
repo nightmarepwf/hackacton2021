@@ -33,10 +33,10 @@ class BloggersMVI @Inject constructor(
     override fun handleEvent(event: BloggersContract.Event) {
         when(event) {
             is BloggersContract.Event.SelectBlogger -> {
-                _selectedBloggers.value += event.blogger.id
+                _selectedBloggers.value += event.blogger.ID
             }
             is BloggersContract.Event.DeselectBlogger -> {
-                _selectedBloggers.value -= event.blogger.id
+                _selectedBloggers.value -= event.blogger.ID
             }
         }
     }

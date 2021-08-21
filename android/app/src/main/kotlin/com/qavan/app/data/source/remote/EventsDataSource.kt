@@ -4,10 +4,12 @@ import androidx.paging.PagingState
 import com.qavan.app.data.model.Event
 import io.ktor.client.*
 import kotlinx.coroutines.delay
+import kotlinx.serialization.json.Json
 
 class EventsDataSource(
-    httpClient: HttpClient,
-): BasePagingRemoteDataSource<Event>(httpClient) {
+    override val json: Json,
+    override val httpClient: HttpClient,
+): BasePagingRemoteDataSource<Event>() {
 
     override fun getRefreshKey(state: PagingState<Int, Event>): Int? {
         return state.anchorPosition?.let { anchorPosition ->

@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
+import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
 @Module
@@ -17,8 +18,10 @@ object RemoteDataSourceModule {
     @Singleton
     fun provideEventsDataSource(
         httpClient: HttpClient,
+        json: Json,
     ): EventsDataSource {
         return EventsDataSource(
+            json = json,
             httpClient = httpClient,
         )
     }
@@ -27,8 +30,10 @@ object RemoteDataSourceModule {
     @Singleton
     fun provideBloggersDataSource(
         httpClient: HttpClient,
+        json: Json,
     ): BloggersDataSource {
         return BloggersDataSource(
+            json = json,
             httpClient = httpClient,
         )
     }
