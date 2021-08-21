@@ -116,7 +116,7 @@ namespace Project1.Models
             if (!auth) return false;
             try
             {
-
+         
                 var userFollowers = await InstaApi.UserProcessor
                             .GetUserFollowersAsync("noch4009", PaginationParameters.MaxPagesToLoad(1));
                
@@ -140,6 +140,25 @@ namespace Project1.Models
                 return instUser;
             }
             catch (Exception )
+            {
+                return false;
+            }
+
+
+        }
+
+        public static async Task<object> CheckPost()
+        {
+            var auth = await Auth();
+            if (!auth) return false;
+            try
+            {
+
+                var usermedia = await InstaApi.UserProcessor.GetUserMediaAsync("intoandroiddreams", PaginationParameters.MaxPagesToLoad(25));
+
+                return usermedia;
+            }
+            catch (Exception)
             {
                 return false;
             }
