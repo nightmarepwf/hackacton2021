@@ -25,52 +25,48 @@ fun EventScreen(
     onCreateEventClick: () -> Unit = {},
     onEventClick: (Event) -> Unit = {},
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        when(state) {
-            EventContract.EventState.Idle -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    if (events.itemCount != 0) {
-                        item {
-                            AppTextH2(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(),
-                                text = "Предстоящие события",
-                                textAlign = TextAlign.Start,
-                            )
-                        }
-                        item {
-                            AppButton(
-                                modifier = Modifier.padding(),
-                                text = "Создать событие",
-                                onClick = onCreateEventClick,
-                            )
-                        }
+    when(state) {
+        EventContract.EventState.Idle -> {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                if (events.itemCount != 0) {
+                    item {
+                        AppTextH2(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(),
+                            text = "Предстоящие события",
+                            textAlign = TextAlign.Start,
+                        )
                     }
-                    items(events) { event ->
-                        if (event == null) {
+                    item {
+                        AppButton(
+                            modifier = Modifier.padding(),
+                            text = "Создать событие",
+                            onClick = onCreateEventClick,
+                        )
+                    }
+                }
+                items(events) { event ->
+                    if (event == null) {
+                        Loading()
+                    }
+                    else {
+                        ItemEvent(
+                            modifier = Modifier.fillMaxWidth(),
+                            event = event,
+                            onEventClick = onEventClick,
+                        )
+                    }
+                }
+                when {
+                    events.loadState.refresh is LoadState.Loading || events.loadState.append is LoadState.Loading -> {
+                        item {
                             Loading()
-                        }
-                        else {
-                            ItemEvent(
-                                modifier = Modifier.fillMaxWidth(),
-                                event = event,
-                                onEventClick = onEventClick,
-                            )
-                        }
-                    }
-                    when {
-                        events.loadState.refresh is LoadState.Loading || events.loadState.append is LoadState.Loading -> {
-                            item {
-                                Loading()
-                            }
                         }
                     }
                 }
