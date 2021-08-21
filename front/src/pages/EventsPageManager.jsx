@@ -31,7 +31,7 @@ class EventsPageManager extends Component {
 
     toEventList = () => {
         this.setState(prevState => ({
-            ...prevState, frame: <EventsListManager events={this.events}/>
+            ...prevState, frame: <EventsListManager events={prevState.events} createEventButtonHandler={this.createEventButtonHandler}/>
         }))
     }
 
@@ -45,7 +45,7 @@ class EventsPageManager extends Component {
 
     setEventCreated = async (bloggers) => {
         this.setState(prevState => ({
-            ...prevState, frame: <EventsListManager events={this.state.events}/>,
+            ...prevState, frame: <EventsListManager events={this.state.events} createEventButtonHandler={this.createEventButtonHandler}/>,
             bloggersList: bloggers
         }))
         this.setLoading(true);
@@ -59,7 +59,7 @@ class EventsPageManager extends Component {
         this.setLoading(false)
         console.log(event.data)
         this.setState(prevState => ({
-            ...prevState, events: event.data, frame: <EventsListManager events={event.data}/>
+            ...prevState, events: event.data, frame: <EventsListManager events={event.data} createEventButtonHandler={this.createEventButtonHandler}/>
         }))
         return event.data
     }
@@ -96,7 +96,7 @@ class EventsPageManager extends Component {
         this.setState(prevState => ({
             ...prevState,
             events,
-            frame: <EventsListManager events={events}/>
+            frame: <EventsListManager events={events} createEventButtonHandler={this.createEventButtonHandler}/>
         }))
         this.setLoading(false)
     }
@@ -108,7 +108,6 @@ class EventsPageManager extends Component {
         return (
             <div>
                 <h3 className="pageTitle">Предстоящие события</h3>
-                <button className="primaryButton" style={{marginBottom: 20}} onClick={this.createEventButtonHandler}>Создать событие</button>
                 {this.state.frame}
             </div>
         );
