@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import $api from "../http";
 
 class BloggersForEventsSelect extends Component {
     state = {
@@ -6,27 +7,17 @@ class BloggersForEventsSelect extends Component {
         bloggers: []
     }
 
-    bloggers = Array(45).fill({
-        id: Date.now(),
-        name: "Очередной инстаблоггер",
-        login: "@testUser",
-        rating: 7.31,
-        email: "test@mail.ru",
-        checked: false
-    }).map(item => {
-        return {...item, id: Date.now() + Math.floor(Math.random() * (10000))}
-    })
-
     setLoading(bool) {
         this.setState(prevState => ({
             ...prevState, isLoading: bool
         }))
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.setLoading(true);
+        const response = await $api.get('Blogers');
         this.setState(prevState => ({
-            ...prevState, bloggers: this.bloggers
+            ...prevState, bloggers: response.data
         }))
         this.setLoading(false)
     }
@@ -34,7 +25,7 @@ class BloggersForEventsSelect extends Component {
     checkboxHandler = (e) => {
         let newBloggersArray = [...this.state.bloggers];
         newBloggersArray = newBloggersArray.map(item => {
-            if (String(item.id) === String(e.target.name)) {
+            if (String(item.ID) === String(e.target.name)) {
                 item.checked = e.target.checked
                 return item
             }
@@ -63,11 +54,11 @@ class BloggersForEventsSelect extends Component {
                     </thead>
                     <tbody>
                     {this.state.bloggers.map(blogger => (
-                        <tr key={blogger.id}>
-                            <td><input type="checkbox" name={blogger.id} value={blogger.checked}
+                        <tr key={blogger.ID}>
+                            <td><input type="checkbox" name={blogger.ID} value={blogger.checked}
                                        onChange={(e) => this.checkboxHandler(e)}/></td>
-                            <td>{blogger.name}</td>
-                            <td>{blogger.login}</td>
+                            <td>{blogger.u_name}</td>
+                            <td>{blogger.instagram}</td>
                             <td>{blogger.rating}</td>
                             <td>{blogger.email}</td>
                         </tr>

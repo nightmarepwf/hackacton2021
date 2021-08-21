@@ -1,11 +1,11 @@
 import React from "react";
 import {AuthPage} from './pages/index'
 import BloggerRouter from "./components/BloggerRouter";
-import {ManagerRouter} from "./components";
+import {Layout, ManagerRouter} from "./components";
 
 class App extends React.Component {
     state = {
-        isUserLogged: false,
+        isUserLogged: true,
         userRole: "manager"
     };
 
@@ -29,7 +29,7 @@ class App extends React.Component {
             case "blogger":
                 return <BloggerRouter/>
             case "manager":
-                return <ManagerRouter/>
+                return <Layout><ManagerRouter/></Layout>
             default:
                 return <BloggerRouter/>
         }
