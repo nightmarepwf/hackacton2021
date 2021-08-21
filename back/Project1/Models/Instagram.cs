@@ -126,13 +126,30 @@ namespace Project1.Models
 
         }
 
-        public static async Task<bool>  SendMessage(string msg)
+        public static async Task<bool> GetUserFullInfoByName(string name)
         {
             var auth = await Auth();
             if (!auth) return false;
             try
             {
-                var instUser = await InstaApi.UserProcessor.GetUserInfoByUsernameAsync("noch4009");
+                var instUser = await InstaApi.UserProcessor.GetUserInfoByUsernameAsync(name);
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+        public static async Task<bool>  SendMessage(string name,string msg)
+        {
+            var auth = await Auth();
+            if (!auth) return false;
+            try
+            {
+                var instUser = await InstaApi.UserProcessor.GetUserInfoByUsernameAsync(name);
                 var sendMessageResult = await InstaApi.MessagingProcessor.SendDirectTextAsync($"{instUser?.Value?.Pk}", string.Empty, msg);
             }
             catch (Exception e)
