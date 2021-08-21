@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {AuthPage} from './pages/index'
+import BloggerRouter from "./components/BloggerRouter";
+import {ManagerRouter} from "./components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    state = {
+        isUserLogged: false,
+        userRole: "manager"
+    };
+
+    setUserLogged = () => {
+        this.setState({
+            isUserLogged: true, userRole: "manager"
+        })
+    }
+
+    componentDidMount() {
+        //TODO: проверка авторизации
+    }
+
+    render() {
+        if (!this.state.isUserLogged) {
+            return (
+                <AuthPage setUserLogged={this.setUserLogged}/>
+            );
+        }
+        switch (this.state.userRole) {
+            case "blogger":
+                return <BloggerRouter/>
+            case "manager":
+                return <ManagerRouter/>
+            default:
+                return <BloggerRouter/>
+        }
+    }
 }
 
 export default App;
