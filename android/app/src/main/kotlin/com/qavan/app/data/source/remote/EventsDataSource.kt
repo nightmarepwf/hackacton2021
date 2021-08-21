@@ -39,7 +39,7 @@ class EventsDataSource(
 
     private suspend fun getEvents(page: Int, count: Int): List<Event> {
         return getAndDeserialize<List<Event>>("${BASE_URL}/Events").map {
-            it.copy(event_date_formatted = it.event_date_formatted.date)
+            it.copy(event_date_formatted = it.event_date.date)
         }
     }
 }
