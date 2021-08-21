@@ -28,6 +28,8 @@ class BloggersDataSource(
         return try {
             delay(700)
             val nextPageNumber = params.key ?: 1
+            if (nextPageNumber > 1)
+                return  LoadResult.Error(NotImplementedError())
             return LoadResult.Page(
                 data = getBloggers(nextPageNumber, params.loadSize),
                 prevKey = null,
