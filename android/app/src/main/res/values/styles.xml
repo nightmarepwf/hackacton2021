@@ -17,6 +17,15 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
+
+        <item name="materialCalendarTheme">@style/MaterialCalendarTheme</item>
     </style>
 
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarHeaderToggleButton">@style/MaterialCalendarHeaderToggleButtonStyle</item>
+    </style>
+
+    <style name="MaterialCalendarHeaderToggleButtonStyle" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>
