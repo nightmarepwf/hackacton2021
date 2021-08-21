@@ -19,6 +19,7 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.NamedNavArgument
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -30,6 +31,8 @@ import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALE
 import com.qavan.app.compose.AppTheme
 import com.qavan.app.data.source.local.DevicePreferencesDataSource
 import com.qavan.app.manager.ToastManager
+import com.qavan.app.ui.screens.LoginMVI
+import com.qavan.app.ui.screens.LoginScreen
 import com.qavan.app.ui.screens.bloggers.BloggersContract
 import com.qavan.app.ui.screens.bloggers.BloggersMVI
 import com.qavan.app.ui.screens.bloggers.BloggersScreen
@@ -41,6 +44,8 @@ import com.qavan.app.ui.screens.events.EventScreen
 import com.qavan.app.ui.screens.launch.LaunchMVI
 import com.qavan.app.ui.screens.launch.LaunchScreen
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -48,7 +53,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AppActivity: AppCompatActivity() {
 
-    private var initialScreenName = Route.Bloggers.name
+    private var initialScreenName = Route.Launch.name
 
     @Inject
     lateinit var devicePreferences: DevicePreferencesDataSource
@@ -84,11 +89,37 @@ class AppActivity: AppCompatActivity() {
                 LaunchScreen(
                     state = state.value.state,
                     onLoginAsDepartmentSpecialistClicked = {
-                         navController.navigate(Route.Events.name)
+                        navController.navigate("${Route.Login.name}$IsDepartament")
                     },
                     onLoginAsBloggerClicked = {
-                         //TODO NAVIGATION
+                        navController.navigate(Route.Events.name)
                     },
+                )
+            }
+            screen("${Route.Login}$IsDepartament", screenWidth) {
+                val mviLogin: LoginMVI = viewModel()
+                val state by mviLogin.uiState.collectAsState()
+                LoginScreen(
+                    state = state.state,
+                    onLogin = {
+                        scope.launch {
+                            delay(400)
+                            navController.navigate(Route.Events.name)
+                        }
+                    }
+                )
+            }
+            screen("${Route.Login}", screenWidth) {
+                val mviLogin: LoginMVI = viewModel()
+                val state by mviLogin.uiState.collectAsState()
+                LoginScreen(
+                    state = state.state,
+                    onLogin = {
+                        scope.launch {
+                            delay(400)
+                            //TODO
+                        }
+                    }
                 )
             }
             screen(Route.Events, screenWidth) {
@@ -172,6 +203,7 @@ class AppActivity: AppCompatActivity() {
     private fun NavGraphBuilder.screen(
         route: Route,
         screenWidth: Int,
+        arguments: List<NamedNavArgument> = emptyList(),
         enterTransition: (AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterTransition?)? = { initial, _ ->
             slideInHorizontally(initialOffsetX = { screenWidth }, animationSpec = tween(400))
         },
@@ -187,7 +219,38 @@ class AppActivity: AppCompatActivity() {
         content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
     ) {
         composable(
-            route.name,
+            route = route.name,
+            arguments = arguments,
+            enterTransition = enterTransition,
+            exitTransition = exitTransition,
+            popEnterTransition = popEnterTransition,
+            popExitTransition = popExitTransition,
+        ) {
+            content(it)
+        }
+    }
+
+    private fun NavGraphBuilder.screen(
+        route: String,
+        screenWidth: Int,
+        arguments: List<NamedNavArgument> = emptyList(),
+        enterTransition: (AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterTransition?)? = { initial, _ ->
+            slideInHorizontally(initialOffsetX = { screenWidth }, animationSpec = tween(400))
+        },
+        exitTransition: (AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitTransition?)? = { _, target ->
+            slideOutHorizontally(targetOffsetX = { -screenWidth }, animationSpec = tween(400))
+        },
+        popEnterTransition: (AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterTransition?)? = { initial, _ ->
+            slideInHorizontally(initialOffsetX = { -screenWidth }, animationSpec = tween(400))
+        },
+        popExitTransition: (AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitTransition?)? = { _, target ->
+            slideOutHorizontally(targetOffsetX = { screenWidth }, animationSpec = tween(400))
+        },
+        content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
+    ) {
+        composable(
+            route = route,
+            arguments = arguments,
             enterTransition = enterTransition,
             exitTransition = exitTransition,
             popEnterTransition = popEnterTransition,
@@ -227,6 +290,7 @@ class AppActivity: AppCompatActivity() {
 
     companion object {
         private const val DatePickerTag = "DatePicker"
+        private const val IsDepartament = "IsDepartament"
     }
 
 
