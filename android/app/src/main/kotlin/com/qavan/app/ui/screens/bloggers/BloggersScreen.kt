@@ -34,23 +34,21 @@ fun BloggersScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        if (bloggers.itemCount > 0) {
-            item {
-                AppTextH2(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(),
-                    text = "Список блоггеров",
-                    textAlign = TextAlign.Start,
-                )
-            }
-            item {
-                AppButton(
-                    modifier = Modifier.padding(),
-                    text = "Добавить блоггера вручную",
-                    onClick = onAddBloggerClick,
-                )
-            }
+        item {
+            AppTextH2(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(),
+                text = "Список блоггеров",
+                textAlign = TextAlign.Start,
+            )
+        }
+        item {
+            AppButton(
+                modifier = Modifier.padding(),
+                text = "Добавить блоггера вручную",
+                onClick = onAddBloggerClick,
+            )
         }
         items(bloggers) { blogger ->
             if (blogger != null) {

@@ -33,23 +33,21 @@ fun EventScreen(
                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                if (events.itemCount != 0) {
-                    item {
-                        AppTextH2(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(),
-                            text = "Предстоящие события",
-                            textAlign = TextAlign.Start,
-                        )
-                    }
-                    item {
-                        AppButton(
-                            modifier = Modifier.padding(),
-                            text = "Создать событие",
-                            onClick = onCreateEventClick,
-                        )
-                    }
+                item {
+                    AppTextH2(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(),
+                        text = "Предстоящие события",
+                        textAlign = TextAlign.Start,
+                    )
+                }
+                item {
+                    AppButton(
+                        modifier = Modifier.padding(),
+                        text = "Создать событие",
+                        onClick = onCreateEventClick,
+                    )
                 }
                 items(events) { event ->
                     if (event == null) {
