@@ -16,7 +16,7 @@ namespace Project1.Models
 
             var result = JsonConvert.SerializeObject(new return_obj() {
                 old_blogers = DataProvider.executeProcedure("dbo.get_blogers")?.Tables?[0],
-                new_blogers=null //JsonConvert.DeserializeObject<search_bloger>(Instagram.ParseByWords().ToString())
+                new_blogers=JsonConvert.DeserializeObject<search_bloger>(Instagram.ParseByWords().ToString())
             });
 
 

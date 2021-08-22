@@ -48,7 +48,7 @@ namespace Project1.Models
         }
         public static bool SyncBlogers(List<bloger> blogers, string id, event_value evt)
         {
-            string url = "http://185.233.2.140/hack/Confirm/";
+            string url = "http://e4f9-195-209-251-111.ngrok.io/Confirm/";
             foreach (bloger usr in blogers)
             {
                 Guid g = Guid.NewGuid();
