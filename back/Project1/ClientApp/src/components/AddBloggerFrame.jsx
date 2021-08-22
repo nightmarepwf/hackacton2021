@@ -38,12 +38,69 @@ class AddBloggerFrame extends Component {
     render() {
         return (
             <div>
-                <p><label>Имя <input name="firstName" value={this.state.firstName} onChange={this.inputHandler}/></label></p>
-                <p><label>Фамилия <input name="lastName" value={this.state.lastName} onChange={this.inputHandler}/></label></p>
-                <p><label>Логин instagram <input name="loginInstagram" value={this.state.loginInstagram} onChange={this.inputHandler}/></label></p>
-                <p><label>Email <input name="email" value={this.state.email} onChange={this.inputHandler}/></label></p>
-                <button onClick={this.props.toBloggersList}>Вернуться к списку</button>
-                <button onClick={this.createHandler}>Добавить в реестр</button>
+                <h4 className="pageSubTitle">Добавление в реестр</h4>
+                <p style={{display: "flex", flexDirection: "column"}}>
+                    <label style={{color: "#0077b6", fontWeight: 600}}>Имя</label>
+                    <input type="text"
+                           name="firstName"
+                           value={this.state.firstName}
+                           onChange={this.inputHandler}
+                           style={{
+                               padding: "5px 10px",
+                               color: "#023e8a",
+                               fontSize: "1.1rem",
+                               borderColor: "#0077b6",
+                               borderRadius: 5
+                           }}
+                    />
+                </p>
+                <p style={{display: "flex", flexDirection: "column"}}>
+                    <label style={{color: "#0077b6", fontWeight: 600}}>Фамилия</label>
+                    <input type="text"
+                           name="lastName"
+                           value={this.state.lastName}
+                           onChange={this.inputHandler}
+                           style={{
+                               padding: "5px 10px",
+                               color: "#023e8a",
+                               fontSize: "1.1rem",
+                               borderColor: "#0077b6",
+                               borderRadius: 5
+                           }}
+                    />
+                </p>
+                <p style={{display: "flex", flexDirection: "column"}}>
+                    <label style={{color: "#0077b6", fontWeight: 600}}>Логин instagram</label>
+                    <input type="text"
+                           name="loginInstagram"
+                           value={this.state.loginInstagram}
+                           onChange={this.inputHandler}
+                           style={{
+                               padding: "5px 10px",
+                               color: "#023e8a",
+                               fontSize: "1.1rem",
+                               borderColor: "#0077b6",
+                               borderRadius: 5
+                           }}
+                    />
+                </p>
+                <p style={{display: "flex", flexDirection: "column"}}>
+                    <label style={{color: "#0077b6", fontWeight: 600}}>Email</label>
+                    <input type="text"
+                           name="email"
+                           value={this.state.email}
+                           onChange={this.inputHandler}
+                           style={{
+                               padding: "5px 10px",
+                               color: "#023e8a",
+                               fontSize: "1.1rem",
+                               borderColor: "#0077b6",
+                               borderRadius: 5
+                           }}
+                    />
+                </p>
+                <button className="primaryButton" style={{marginRight: 10}} onClick={this.props.backToBloggerList}>Вернуться к списку</button>
+                <button className="primaryButton" onClick={this.createHandler}>Добавить в реестр</button>
             </div>
         );
     }

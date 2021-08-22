@@ -31,9 +31,10 @@ namespace Project1.Controllers.api
 
 
         [HttpPost]
-        public  object Post([FromBody] string value)
+        public async Task<object> Post([FromBody] string value)
         {
-            return  Instagram.CheckPost(); 
+            var user = JsonConvert.DeserializeObject<userDesc>(value)?.user;
+            return JsonConvert.SerializeObject(await Instagram.GetUserFullInfoByName(user));
         }
     }
     public class userDesc
