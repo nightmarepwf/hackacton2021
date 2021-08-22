@@ -159,12 +159,14 @@ class AppActivity: AppCompatActivity() {
                                 val description by mviCreate.description.collectAsState()
                                 val time by mviCreate.time.collectAsState()
                                 val tags by mviCreate.tags.collectAsState()
+                                val mentions by mviCreate.mentions.collectAsState()
                                 CreateScreen(
                                     state = stateCreate.state,
                                     title = title,
                                     description = description,
                                     time = time,
                                     tags = tags,
+                                    mentions = mentions,
                                     onTitleChange = {
                                         mviCreate.setEvent(CreateContract.Event.SetTitle(it))
                                     },
@@ -190,6 +192,12 @@ class AppActivity: AppCompatActivity() {
                                     },
                                     onRemoveTagClicked = { tag ->
                                         mviCreate.setEvent(CreateContract.Event.RemoveTag(tag))
+                                    },
+                                    onAddMentionClicked = { mention ->
+                                        mviCreate.setEvent(CreateContract.Event.AddMention(mention))
+                                    },
+                                    onRemoveMentionClicked = { mention ->
+                                        mviCreate.setEvent(CreateContract.Event.RemoveMention(mention))
                                     },
                                 )
                             }

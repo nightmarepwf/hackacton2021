@@ -1,6 +1,7 @@
 package com.qavan.app.ui.screens.create
 
 import com.qavan.app.base.mvi.MVI
+import com.qavan.app.data.model.Mention
 import com.qavan.app.data.model.TagX
 import com.qavan.app.extensions.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,9 @@ class CreateMVI @Inject constructor(
     private val _tags by lazy { MutableStateFlow(emptyList<TagX>()) }
     val tags by lazy { _tags.asStateFlow() }
 
+    private val _mentions by lazy { MutableStateFlow(emptyList<Mention>()) }
+    val mentions by lazy { _mentions.asStateFlow() }
+
     override fun createInitialState(): CreateContract.State {
         return CreateContract.State(
             CreateContract.CreateState.Idle
@@ -47,6 +51,12 @@ class CreateMVI @Inject constructor(
             }
             is CreateContract.Event.RemoveTag -> {
                 _tags.value -= event.tag
+            }
+            is CreateContract.Event.AddMention -> {
+                _mentions.value += event.mention
+            }
+            is CreateContract.Event.RemoveMention -> {
+                _mentions.value -= event.mention
             }
         }
     }

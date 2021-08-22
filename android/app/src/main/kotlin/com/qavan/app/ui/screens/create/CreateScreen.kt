@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.flowlayout.FlowColumn
 import com.google.accompanist.flowlayout.FlowRow
 import com.qavan.app.R
 import com.qavan.app.compose.AppTheme
@@ -20,9 +19,10 @@ import com.qavan.app.compose.buttons.AppButtonAction
 import com.qavan.app.compose.buttons.AppButtonOutlinedAction
 import com.qavan.app.compose.input.AppOutlinedTextField
 import com.qavan.app.compose.text.AppTextBody
-import com.qavan.app.compose.text.AppTextCaption
+import com.qavan.app.data.model.Mention
 import com.qavan.app.data.model.TagX
 import com.qavan.app.extensions.EMPTY
+import com.qavan.app.ui.items.ItemMention
 import com.qavan.app.ui.items.ItemTag
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,10 +35,13 @@ fun CreateScreen(
     description: String = "Description",
     time: Long = 1629496957406L,
     tags: List<TagX> = emptyList(),
+    mentions: List<Mention> = emptyList(),
     onTitleChange: (String) -> Unit = {},
     onDescriptionChange: (String) -> Unit = {},
     onAddTagClicked: (TagX) -> Unit = {},
     onRemoveTagClicked: (TagX) -> Unit = {},
+    onAddMentionClicked: (Mention) -> Unit = {},
+    onRemoveMentionClicked: (Mention) -> Unit = {},
     onDateClicked: () -> Unit = {},
     onBackClicked: () -> Unit = {},
 ) {
@@ -139,6 +142,53 @@ fun CreateScreen(
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+        AppTextBody(
+            text = "Упоминания",
+            color = MaterialTheme.colors.primary,
+        )
+        var mentionName by remember { mutableStateOf(String.EMPTY) }
+        AppOutlinedTextField(
+            value = mentionName,
+            placeholder = "Введите упоминание",
+            trailingIcon = {
+                Icon(
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .padding(end = 12.dp)
+                        .clip(RoundedCornerShape(50))
+                        .clickable {
+                            if (mentionName.isNotBlank()) {
+                                onAddMentionClicked(Mention(name = mentionName))
+                                mentionName = String.EMPTY
+                            }
+                        }
+                        .padding(8.dp),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_add_24),
+                    contentDescription = "Добавить",
+                    tint = MaterialTheme.colors.primary,
+                )
+            },
+            onValueChange = {
+                mentionName = it
+            },
+        )
+        if (mentions.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                mainAxisSpacing = 8.dp,
+                crossAxisSpacing = 6.dp,
+            ) {
+                mentions.forEach { mention ->
+                    ItemMention(
+                        modifier = Modifier.wrapContentWidth(),
+                        mention = mention,
+                        onRemoveIconClick = onRemoveMentionClicked,
+                    )
+                }
+            }
         }
         Spacer(modifier = Modifier.height(8.dp))
         Row(
@@ -173,6 +223,7 @@ private fun CreateScreenPreview() {
             title = title,
             description = description,
             tags = (1..5).map { TagX(name = "Tag$it") },
+            mentions = (1..5).map { Mention(name = "Mention$it") },
             onTitleChange = { title = it },
             onDescriptionChange = { description = it },
         )
