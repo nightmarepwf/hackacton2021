@@ -143,6 +143,7 @@ class AppActivity: AppCompatActivity() {
                         val navController = rememberAnimatedNavController()
                         val mviEvents: EventMVI = viewModel()
                         val mviCreate: CreateMVI = viewModel()
+                        val mviBloggers: BloggersMVI = viewModel()
                         AnimatedNavHost(navController = navController, startDestination = Route.Events.name) {
                             screen(Route.Events, screenWidth) {
                                 val state by mviEvents.uiState.collectAsState()
@@ -189,13 +190,6 @@ class AppActivity: AppCompatActivity() {
                                             },
                                         )
                                     },
-                                    onBackClicked = {
-                                        onBackPressed()
-                                        scope.launch {
-                                            delay(500)
-                                            mviCreate.drop()
-                                        }
-                                    },
                                     onAddTagClicked = { tag ->
                                         mviCreate.setEvent(CreateContract.Event.AddTag(tag))
                                     },
@@ -207,6 +201,51 @@ class AppActivity: AppCompatActivity() {
                                     },
                                     onRemoveMentionClicked = { mention ->
                                         mviCreate.setEvent(CreateContract.Event.RemoveMention(mention))
+                                    },
+                                    onBackClicked = {
+                                        onBackPressed()
+                                        scope.launch {
+                                            delay(500)
+                                            mviCreate.drop()
+                                        }
+                                    },
+                                    onNextClicked = {
+                                        navController.navigate(Route.Bloggers.name)
+                                    },
+                                )
+                            }
+                            screen(Route.Bloggers, screenWidth) {
+                                val state by mviBloggers.uiState.collectAsState()
+                                val bloggers = mviBloggers.bloggers.collectAsLazyPagingItems()
+                                val selectedBloggers by mviBloggers.selectedBloggers.collectAsState()
+                                BloggersScreen(
+                                    checkable = true,
+                                    state = state.state,
+                                    bloggers = bloggers,
+                                    selectedBloggers = selectedBloggers,
+                                    onAddBloggerClick = {
+
+                                    },
+                                    onBloggerClick = { selected, blogger ->
+                                        mviBloggers.setEvent(
+                                            if (selected)
+                                                BloggersContract.Event.DeselectBlogger(blogger)
+                                            else
+                                                BloggersContract.Event.SelectBlogger(blogger)
+                                        )
+                                    },
+                                    onCreateClicked = {
+                                        navController.navigate(Route.Events.name) {
+                                            popUpTo(Route.Events.name) {
+                                                inclusive = true
+                                            }
+                                        }
+                                        scope.launch {
+                                            toastManager.toast("Created")
+                                            delay(500)
+                                            mviCreate.drop()
+                                            mviBloggers.drop()
+                                        }
                                     },
                                 )
                             }

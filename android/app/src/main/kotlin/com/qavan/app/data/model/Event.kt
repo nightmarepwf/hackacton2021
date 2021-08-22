@@ -11,7 +11,7 @@ data class Event(
     val event_description: String = "Item description",
     val event_date: String = "",
     val event_date_formatted: String = "",
-    val event_image: String = "https://cdn.dribbble.com/users/11125/screenshots/11342016/bruh_4x.png",
+    val event_image: String = "https://dt.samregion.ru/wp-content/uploads/sites/40/2021/08/ubqpa_zrx7y.jpg",
     @SerialName("count1")
     val event_participant_count: Int = 0,
 )

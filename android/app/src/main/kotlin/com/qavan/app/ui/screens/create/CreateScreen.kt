@@ -50,6 +50,7 @@ fun CreateScreen(
     onRemoveMentionClicked: (Mention) -> Unit = {},
     onDateClicked: () -> Unit = {},
     onBackClicked: () -> Unit = {},
+    onNextClicked: () -> Unit = {},
 ) {
     val dateTime = if (time == -1L)
         "дд.мм.гггг"
@@ -258,6 +259,7 @@ fun CreateScreen(
                     .wrapContentWidth()
                     .weight(1f),
                 text = "Далее",
+                onClick = onNextClicked,
             )
         }
     }

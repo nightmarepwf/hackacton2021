@@ -41,4 +41,8 @@ class BloggersMVI @Inject constructor(
         }
     }
 
+    fun drop() {
+        _selectedBloggers.value = emptyList()
+    }
+
 }
