@@ -16,15 +16,18 @@ namespace Project1.Models
 
             var result = JsonConvert.SerializeObject(new return_obj() {
                 old_blogers = DataProvider.executeProcedure("dbo.get_blogers")?.Tables?[0],
-                new_blogers= JsonConvert.DeserializeObject<search_bloger>(Instagram.ParseByWords().ToString())
+                new_blogers=null //JsonConvert.DeserializeObject<search_bloger>(Instagram.ParseByWords().ToString())
             });
 
 
             return result;
         }
 
-        public static bool CreateEvent(bloger_value value_obj)
+        public static async Task<bool> CreateEvent(bloger_value value_obj)
         {
+
+            //var tmp = JsonConvert.DeserializeObject((await Instagram.GetUserFullInfoByName(value_obj.instagram)).ToString());
+
             SqlParameter[] dbParams = new SqlParameter[]
 {
         new SqlParameter("@u_name", value_obj.u_name),
@@ -34,6 +37,7 @@ namespace Project1.Models
         new SqlParameter("@instagram", value_obj.instagram),
         new SqlParameter("@youtube", value_obj.youtube),
         new SqlParameter("@date_last_reject", value_obj.date_last_reject)
+        //new SqlParameter("@followers", tmp.Value.)
 };
             DataProvider.executeProcedure("dbo.create_bloger", dbParams);
 

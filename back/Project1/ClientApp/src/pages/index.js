@@ -5,3 +5,4 @@ export {default as AuthPage} from './AuthPage';
 export {default as ProfilePage} from './ProfilePage';
 export {default as EventCard} from './EventCard';
 export {default as BloggersList} from './BloggersList';
+export {default as ConfirmPage} from './ConfirmPage';

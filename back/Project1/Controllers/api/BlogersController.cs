@@ -19,10 +19,10 @@ namespace Project1.Controllers.api
         }
 
         [HttpPost]
-        public object Post([FromBody] string value)
+        public async Task<object> Post([FromBody] string value)
         {
             bloger_value obj = JsonConvert.DeserializeObject<bloger_value>(value);
-            if (Blogers.CreateEvent(obj)) return Blogers.GetList();
+            if (await Blogers.CreateEvent(obj)) return Blogers.GetList();
             return null;
         }
 
