@@ -28,23 +28,26 @@
 # Guarded by a NoClassDefFoundError try/catch and only used when on the classpath.
 -dontwarn kotlin.Unit
 
-# OkHttp
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.AnnotationsKt # core serialization annotations
 
-# A resource is loaded with a relative path so the package of this class must be preserved.
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+# kotlinx-serialization-json specific. Add this if you have java.lang.NoClassDefFoundError kotlinx.serialization.json.JsonObjectSerializer
+-keepclassmembers class kotlinx.serialization.json.** {
+    *** Companion;
+}
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
 
-# OkHttp platform used only on JVM and when Conscrypt dependency is available.
--dontwarn org.conscrypt.ConscryptHostnameVerifier
+# Change here com.qavan.app
+-keep,includedescriptorclasses class com.qavan.app.**$$serializer { *; } # <-- change package name to your app's
+-keepclassmembers class com.qavan.app.** { # <-- change package name to your app's
+    *** Companion;
+}
+-keepclasseswithmembers class com.qavan.app.** { # <-- change package name to your app's
+    kotlinx.serialization.KSerializer serializer(...);
+}
 
--dontwarn sun.misc.Unsafe
-
-# Gson
-# https://github.com/google/gson/blob/master/examples/android-proguard-example/proguard.cfg
--dontwarn sun.misc.**
--keep class com.google.gson.stream.** { *; }
--keep class * implements com.google.gson.TypeAdapterFactory
--keep class * implements com.google.gson.JsonSerializer
--keep class * implements com.google.gson.JsonDeserializer
 
 # Crashlytics
 -keep class com.crashlytics.** { *; }
@@ -56,10 +59,7 @@
    keySize_ *;
 }
 
--keepclassmembers class ** implements androidx.viewbinding.ViewBinding {
-   public static *** inflate(...);
-   public static *** bind(***);
-}-assumenosideeffects class kotlinx.coroutines.internal.MainDispatcherLoader {
+-assumenosideeffects class kotlinx.coroutines.internal.MainDispatcherLoader {
      boolean FAST_SERVICE_LOADER_ENABLED return false;
  }
 

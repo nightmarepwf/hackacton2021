@@ -11,6 +11,7 @@ import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
+import kotlinx.serialization.json.Json
 import timber.log.Timber
 import javax.inject.Singleton
 
@@ -20,7 +21,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient() = HttpClient(Android) {
+    fun provideJson(): Json {
+        return Json {
+            prettyPrint = true
+            isLenient = true
+            ignoreUnknownKeys = true
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(
+        json: Json,
+    ) = HttpClient(Android) {
         val debuggable = BuildConfig.DEBUG
 
         if (debuggable) {
@@ -35,11 +48,7 @@ object NetworkModule {
         }
 
         install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-                prettyPrint = true
-                isLenient = true
-                ignoreUnknownKeys = true
-            })
+            serializer = KotlinxSerializer(json)
         }
 
         install(HttpTimeout) {

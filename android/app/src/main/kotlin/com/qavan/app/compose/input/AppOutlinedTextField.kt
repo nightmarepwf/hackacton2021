@@ -21,12 +21,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.qavan.app.compose.AppTextStyleBody
-import com.qavan.app.compose.AppTextStyleCaption
-import com.qavan.app.compose.AppTheme
-import com.qavan.app.compose.RubikMedium
+import com.qavan.app.compose.*
 import com.qavan.app.compose.text.AppTextBody
 import com.qavan.app.compose.text.AppTextCaption
+import com.qavan.app.compose.text.AppTextSubtitle
 import com.qavan.app.extensions.compose.alpha50
 import com.qavan.app.extensions.compose.disabled
 import kotlinx.coroutines.launch
@@ -48,7 +46,7 @@ fun AppOutlinedTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    shape: Shape = RoundedCornerShape(30.dp),
+    shape: Shape = DefaultShape,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
         textColor = MaterialTheme.colors.primary,
         disabledTextColor = MaterialTheme.colors.primary.disabled,
@@ -124,8 +122,7 @@ fun AppOutlinedTextField(
                                 scope.launch { paddingStart.animateTo(12f) }
                                 scope.launch { labelBackgroundAlpha.animateTo(0f) }
                                 scope.launch { labelFontSize.animateTo(14f) }
-                            }
-                            else {
+                            } else {
                                 scope.launch { paddingTop.animateTo(0f) }
                                 scope.launch { paddingStart.animateTo(31f) }
                                 scope.launch { labelBackgroundAlpha.animateTo(1f) }
@@ -139,7 +136,10 @@ fun AppOutlinedTextField(
             enabled = enabled,
             readOnly = readOnly,
             textStyle = textStyle,
-            placeholder = buildAnnotatedString { append(placeholder.toString()) },
+            placeholder = when (placeholder) {
+                null -> null
+                else -> buildAnnotatedString { append(placeholder) }
+            },
             trailingIcon = trailingIcon,
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
@@ -150,28 +150,30 @@ fun AppOutlinedTextField(
             colors = colors,
             onValueChange = onValueChange
         )
-        AppTextCaption(
-            modifier = Modifier
-                .wrapContentWidth()
-                .wrapContentHeight()
-                .padding(
-                    start = paddingStart.value.dp,
-                    end = 0.dp,
-                    top = paddingTop.value.dp,
-                    bottom = 0.dp
-                )
-                .background(MaterialTheme.colors.surface.copy(alpha = labelBackgroundAlpha.value))
-                .padding(
-                    start = 4.dp,
-                    end = 4.dp,
-                    top = 0.dp,
-                    bottom = 0.dp
-                )
-                .align(Alignment.TopStart),
-            text = label.toString(),
-            fontSize = labelFontSize.value.sp,
-            color = MaterialTheme.colors.primary,
-        )
+        if (label != null) {
+            AppTextCaption(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .wrapContentHeight()
+                    .padding(
+                        start = paddingStart.value.dp,
+                        end = 0.dp,
+                        top = paddingTop.value.dp,
+                        bottom = 0.dp
+                    )
+                    .background(MaterialTheme.colors.surface.copy(alpha = labelBackgroundAlpha.value))
+                    .padding(
+                        start = 4.dp,
+                        end = 4.dp,
+                        top = 0.dp,
+                        bottom = 0.dp
+                    )
+                    .align(Alignment.TopStart),
+                text = label.toString(),
+                fontSize = labelFontSize.value.sp,
+                color = MaterialTheme.colors.primary,
+            )
+        }
     }
 }
 
@@ -182,11 +184,8 @@ private fun AppOutlinedTextFieldImpl(
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textColor: Color = MaterialTheme.colors.primary,
-    textStyle: TextStyle = when {
-        value.isBlank() -> AppTextStyleBody.copy(color = textColor, fontFamily = RubikMedium)
-        else -> AppTextStyleBody.copy(color = textColor)
-    },
-    placeholder: AnnotatedString = buildAnnotatedString {  },
+    textStyle: TextStyle = AppTextStyleSubheading,
+    placeholder: AnnotatedString? = buildAnnotatedString {  },
     trailingIcon: @Composable (() -> Unit)? = null,
 //    isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -194,7 +193,7 @@ private fun AppOutlinedTextFieldImpl(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    shape: Shape = RoundedCornerShape(30.dp),
+    shape: Shape = DefaultShape,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
         textColor = MaterialTheme.colors.primary,
         disabledTextColor = MaterialTheme.colors.primary.disabled,
@@ -230,11 +229,13 @@ private fun AppOutlinedTextFieldImpl(
             Surface {}
         },
         placeholder = {
-            AppTextBody(
-                modifier = Modifier.fillMaxWidth(),
-                text = placeholder,
-                color = MaterialTheme.colors.primary.alpha50,
-            )
+            if (placeholder != null) {
+                AppTextSubtitle(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = placeholder,
+                    color = MaterialTheme.colors.primary.alpha50,
+                )
+            }
         },
         trailingIcon = trailingIcon,
 //        isError = isError,

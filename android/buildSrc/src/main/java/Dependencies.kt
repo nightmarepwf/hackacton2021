@@ -65,6 +65,7 @@ object Dependencies {
         private const val ae = "com.tunjid.androidx:core:1.3.2"
         private const val prefetchViewPoolCore = "com.github.vivid-money.prefetchviewpool:prefetchviewpool-core:1.0.0"
         private const val prefetchViewPoolCoroutines = "com.github.vivid-money.prefetchviewpool:prefetchviewpool-coroutines:1.0.0"
+        private const val gson = "com.google.code.gson:gson:2.8.8"
 
         val impl = listOf(
             timber,
@@ -74,6 +75,7 @@ object Dependencies {
             ae,
             prefetchViewPoolCore,
             prefetchViewPoolCoroutines,
+            gson,
         )
     }
 
@@ -223,6 +225,10 @@ object Dependencies {
         private const val paging = "androidx.paging:paging-compose:1.0.0-alpha12"
         private const val accompanistFlowLayout = "com.google.accompanist:accompanist-flowlayout:$accompanistVersion"
         private const val accompanistNavigationAnimation = "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
+        private const val accompanistPager = "com.google.accompanist:accompanist-pager:$accompanistVersion"
+        private const val accompanistPagerIndicator = "com.google.accompanist:accompanist-pager-indicators:$accompanistVersion"
+        private const val accompanistInsets = "com.google.accompanist:accompanist-insets:$accompanistVersion"
+        private const val accompanistInsetsUi = "com.google.accompanist:accompanist-insets-ui:$accompanistVersion"
 
         val impl = listOf(
             compiler,
@@ -240,6 +246,10 @@ object Dependencies {
             paging,
             accompanistFlowLayout,
             accompanistNavigationAnimation,
+            accompanistPager,
+            accompanistPagerIndicator,
+            accompanistInsets,
+            accompanistInsetsUi,
         )
         val debugImpl = listOf(
             uiTooling,

@@ -1,10 +1,8 @@
 package com.qavan.app.di.module
 
-import com.qavan.app.data.repository.EventsRepository
-import com.qavan.app.data.repository.EventsRepositoryImpl
-import com.qavan.app.data.repository.UserRepository
-import com.qavan.app.data.repository.UserRepositoryImpl
+import com.qavan.app.data.repository.*
 import com.qavan.app.data.source.local.UserDataSource
+import com.qavan.app.data.source.remote.BloggersDataSource
 import com.qavan.app.data.source.remote.EventsDataSource
 import dagger.Module
 import dagger.Provides
@@ -32,7 +30,17 @@ object RepositoryModule {
         eventsDataSource: EventsDataSource,
     ): EventsRepository {
         return EventsRepositoryImpl(
-            eventsDataSource = eventsDataSource,
+            source = eventsDataSource,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideBloggersRepository(
+        bloggersDataSource: BloggersDataSource,
+    ): BloggersRepository {
+        return BloggersRepositoryImpl(
+            source = bloggersDataSource,
         )
     }
 
