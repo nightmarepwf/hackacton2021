@@ -16,7 +16,7 @@ class BloggersForEventsSelect extends Component {
         this.setState(prevState => ({
             ...prevState, show: bool
         }))
-        if(id) {
+        if (id) {
             const res = await $api.post('/Instagram', JSON.stringify({user: id}), {headers: {"Content-Type": "text/plain"}});
             console.log(res)
             const modalInfo = {
@@ -49,13 +49,13 @@ class BloggersForEventsSelect extends Component {
             instagram: item.instagram,
             rating: item.rating
         }))
-        // response.data.new_blogers.users.map(item => bloggers.push({
-        //     ID: Math.random() * 10,
-        //     full_name:item.user.full_name,
-        //     email: null,
-        //     instagram: item.user.username,
-        //     rating: null
-        // }));
+        response.data.new_blogers.users.map(item => bloggers.push({
+            ID: Math.random() * 10,
+            full_name: item.user.full_name,
+            email: null,
+            instagram: item.user.username,
+            rating: null
+        }));
         console.log(bloggers)
         this.setState(prevState => ({
             ...prevState, bloggers
@@ -100,7 +100,8 @@ class BloggersForEventsSelect extends Component {
                             <td><input type="checkbox" name={blogger.ID} value={blogger.checked}
                                        onChange={(e) => this.checkboxHandler(e)}/></td>
                             <td>{blogger.u_name && blogger.u_soname ? `${blogger.u_name} ${blogger.u_soname}` : blogger.full_name}</td>
-                            <td><span onClick={() => this.setShow(true, blogger.instagram)}>{blogger.instagram}</span></td>
+                            <td><span onClick={() => this.setShow(true, blogger.instagram)}>{blogger.instagram}</span>
+                            </td>
                             <td>{blogger.rating ? blogger.rating : "Новый блоггер"}</td>
                             <td>{blogger.email ? blogger.email : "Нет данных"}</td>
                         </tr>
