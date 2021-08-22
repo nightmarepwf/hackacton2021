@@ -1,11 +1,14 @@
 const Spinner = () => {
     return (
-        <div className="lds_ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div className="center">
+            <div className="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
+
     )
 }
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BloggersForEventsSelect, EventCreate, EventsListManager} from "../components";
+import {BloggersForEventsSelect, EventCreate, EventsListManager, Spinner} from "../components";
 import $api from "../http";
 
 class EventsPageManager extends Component {
@@ -31,7 +31,9 @@ class EventsPageManager extends Component {
 
     toEventList = () => {
         this.setState(prevState => ({
-            ...prevState, frame: <EventsListManager events={prevState.events} createEventButtonHandler={this.createEventButtonHandler}/>
+            ...prevState,
+            frame: <EventsListManager events={prevState.events}
+                                      createEventButtonHandler={this.createEventButtonHandler}/>
         }))
     }
 
@@ -40,12 +42,14 @@ class EventsPageManager extends Component {
             ...prevState,
             eventInfo,
             frame: <BloggersForEventsSelect setEventCreated={this.setEventCreated}/>
-        }))
+        }), () => console.log(this.state))
     }
 
     setEventCreated = async (bloggers) => {
         this.setState(prevState => ({
-            ...prevState, frame: <EventsListManager events={this.state.events} createEventButtonHandler={this.createEventButtonHandler}/>,
+            ...prevState,
+            frame: <EventsListManager events={this.state.events}
+                                      createEventButtonHandler={this.createEventButtonHandler}/>,
             bloggersList: bloggers
         }))
         this.setLoading(true);
@@ -54,12 +58,15 @@ class EventsPageManager extends Component {
             event_description: this.state.eventInfo.desc,
             event_date: this.state.eventInfo.eventDate,
             blogers: bloggers,
-            tags: this.state.eventInfo.tags
+            tags: this.state.eventInfo.tags,
+            mentions: this.state.eventInfo.mentions
         }), {headers: {"Content-Type": "text/plain"}});
         this.setLoading(false)
         console.log(event.data)
         this.setState(prevState => ({
-            ...prevState, events: event.data, frame: <EventsListManager events={event.data} createEventButtonHandler={this.createEventButtonHandler}/>
+            ...prevState,
+            events: event.data,
+            frame: <EventsListManager events={event.data} createEventButtonHandler={this.createEventButtonHandler}/>
         }))
         return event.data
     }
@@ -70,18 +77,19 @@ class EventsPageManager extends Component {
         }))
     }
 
-    sendEvent = async () => {
-        this.setLoading(true);
-        const event = await $api.post("Events", JSON.stringify({
-            title: this.state.eventInfo.title,
-            event_description: this.state.eventInfo.desc,
-            event_date: this.state.eventInfo.eventDate,
-            blogers: this.state.bloggersList,
-            tags: this.state.eventInfo.tags
-        }), {headers: {"Content-Type": "text/plain"}});
-        this.setLoading(false)
-        return event.data
-    }
+    // sendEvent = async () => {
+    //     this.setLoading(true);
+    //     const event = await $api.post("Events", JSON.stringify({
+    //         title: this.state.eventInfo.title,
+    //         event_description: this.state.eventInfo.desc,
+    //         event_date: this.state.eventInfo.eventDate,
+    //         blogers: this.state.bloggersList,
+    //         tags: this.state.eventInfo.tags,
+    //         mentions: this.state.eventInfo.mentions
+    //     }), {headers: {"Content-Type": "text/plain"}});
+    //     this.setLoading(false)
+    //     return event.data
+    // }
 
     getEvents = async () => {
         this.setLoading(true);
@@ -103,7 +111,7 @@ class EventsPageManager extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return <div>Загрузка</div>
+            return <Spinner />
         }
         return (
             <div>

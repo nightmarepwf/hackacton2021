@@ -11,17 +11,13 @@ const Layout = ({children}) => {
         {
             link: "/bloggers",
             title: "Блоггеры"
-        },
-        {
-            link: "/content",
-            title: "Контент"
         }]
 
     return (
         <>
             <header className={styles.header}>
                 <img src={Logo} style={{marginRight: 20}}/>
-                {links.map(item => (<HeaderLink title={item.title} link={item.link}/>))}
+                {links.map((item, index) => (<HeaderLink key={index} title={item.title} link={item.link}/>))}
             </header>
             <main className={styles.main}>{children}</main>
         </>
