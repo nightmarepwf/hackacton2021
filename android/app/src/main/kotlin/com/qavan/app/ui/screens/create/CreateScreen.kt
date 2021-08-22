@@ -3,13 +3,18 @@ package com.qavan.app.ui.screens.create
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
@@ -54,13 +59,25 @@ fun CreateScreen(
             .fillMaxSize()
             .padding(8.dp)
     ) {
+        val focusRequesterTitle = remember { FocusRequester() }
+        val focusRequesterDescription = remember { FocusRequester() }
+        val focusRequesterTags = remember { FocusRequester() }
         AppTextBody(
             text = "Название",
             color = MaterialTheme.colors.primary,
         )
         AppOutlinedTextField(
+            modifier = Modifier.focusRequester(focusRequesterTitle),
             value = title,
             onValueChange = onTitleChange,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    focusRequesterDescription.requestFocus()
+                },
+            ),
         )
         Spacer(modifier = Modifier.height(8.dp))
         AppTextBody(
@@ -68,8 +85,17 @@ fun CreateScreen(
             color = MaterialTheme.colors.primary,
         )
         AppOutlinedTextField(
+            modifier = Modifier.focusRequester(focusRequesterDescription),
             value = description,
             onValueChange = onDescriptionChange,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    focusRequesterTags.requestFocus()
+                },
+            ),
         )
         Spacer(modifier = Modifier.height(8.dp))
         AppTextBody(
@@ -103,6 +129,7 @@ fun CreateScreen(
         )
         var tagName by remember { mutableStateOf(String.EMPTY) }
         AppOutlinedTextField(
+            modifier = Modifier.focusRequester(focusRequesterTags),
             value = tagName,
             placeholder = "Введите название тега",
             trailingIcon = {
@@ -126,6 +153,17 @@ fun CreateScreen(
             onValueChange = {
                 tagName = it
             },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done,
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    if (tagName.isNotBlank()) {
+                        onAddTagClicked(TagX(name = tagName))
+                        tagName = String.EMPTY
+                    }
+                },
+            ),
         )
         if (tags.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
@@ -173,6 +211,17 @@ fun CreateScreen(
             onValueChange = {
                 mentionName = it
             },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done,
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    if (mentionName.isNotBlank()) {
+                        onAddMentionClicked(Mention(name = mentionName))
+                        mentionName = String.EMPTY
+                    }
+                },
+            ),
         )
         if (mentions.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))

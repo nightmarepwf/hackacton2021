@@ -137,10 +137,11 @@ class AppActivity: AppCompatActivity() {
                     0 -> {
                         val navController = rememberAnimatedNavController()
                         val mviEvents: EventMVI = viewModel()
-                        val state by mviEvents.uiState.collectAsState()
-                        val events = mviEvents.events.collectAsLazyPagingItems()
+                        val mviCreate: CreateMVI = viewModel()
                         AnimatedNavHost(navController = navController, startDestination = Route.Events.name) {
                             screen(Route.Events, screenWidth) {
+                                val state by mviEvents.uiState.collectAsState()
+                                val events = mviEvents.events.collectAsLazyPagingItems()
                                 EventScreen(
                                     state = state.state,
                                     events = events,
@@ -153,7 +154,6 @@ class AppActivity: AppCompatActivity() {
                                 )
                             }
                             screen(Route.Create, screenWidth) {
-                                val mviCreate: CreateMVI = viewModel()
                                 val stateCreate by mviCreate.uiState.collectAsState()
                                 val title by mviCreate.title.collectAsState()
                                 val description by mviCreate.description.collectAsState()
@@ -186,6 +186,10 @@ class AppActivity: AppCompatActivity() {
                                     },
                                     onBackClicked = {
                                         onBackPressed()
+                                        scope.launch {
+                                            delay(500)
+                                            mviCreate.drop()
+                                        }
                                     },
                                     onAddTagClicked = { tag ->
                                         mviCreate.setEvent(CreateContract.Event.AddTag(tag))

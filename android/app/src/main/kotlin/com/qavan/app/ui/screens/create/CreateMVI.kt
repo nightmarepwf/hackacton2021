@@ -61,4 +61,12 @@ class CreateMVI @Inject constructor(
         }
     }
 
+    fun drop() {
+        _title.value = String.EMPTY
+        _description.value = String.EMPTY
+        _time.value = -1L
+        _tags.value = emptyList()
+        _mentions.value = emptyList()
+    }
+
 }
