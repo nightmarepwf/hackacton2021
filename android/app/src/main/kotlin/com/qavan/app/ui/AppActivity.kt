@@ -145,10 +145,51 @@ class AppActivity: AppCompatActivity() {
                                     state = state.state,
                                     events = events,
                                     onCreateEventClick = {
-
+                                        navController.navigate(Route.Create.name)
                                     },
                                     onEventClick = {
 
+                                    },
+                                )
+                            }
+                            screen(Route.Create, screenWidth) {
+                                val mviCreate: CreateMVI = viewModel()
+                                val stateCreate by mviCreate.uiState.collectAsState()
+                                val title by mviCreate.title.collectAsState()
+                                val description by mviCreate.description.collectAsState()
+                                val time by mviCreate.time.collectAsState()
+                                val tags by mviCreate.tags.collectAsState()
+                                CreateScreen(
+                                    state = stateCreate.state,
+                                    title = title,
+                                    description = description,
+                                    time = time,
+                                    tags = tags,
+                                    onTitleChange = {
+                                        mviCreate.setEvent(CreateContract.Event.SetTitle(it))
+                                    },
+                                    onDescriptionChange = {
+                                        mviCreate.setEvent(CreateContract.Event.SetDescription(it))
+                                    },
+                                    onDateClicked = {
+                                        showDatePicker(
+                                            selection = if (time == -1L)
+                                                Calendar.getInstance().timeInMillis
+                                            else
+                                                time,
+                                            onSelection = {
+                                                mviCreate.setEvent(CreateContract.Event.SetDate(it))
+                                            },
+                                        )
+                                    },
+                                    onBackClicked = {
+                                        onBackPressed()
+                                    },
+                                    onAddTagClicked = { tag ->
+                                        mviCreate.setEvent(CreateContract.Event.AddTag(tag))
+                                    },
+                                    onRemoveTagClicked = { tag ->
+                                        mviCreate.setEvent(CreateContract.Event.RemoveTag(tag))
                                     },
                                 )
                             }

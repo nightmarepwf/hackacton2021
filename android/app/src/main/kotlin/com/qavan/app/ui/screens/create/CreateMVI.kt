@@ -1,6 +1,7 @@
 package com.qavan.app.ui.screens.create
 
 import com.qavan.app.base.mvi.MVI
+import com.qavan.app.data.model.TagX
 import com.qavan.app.extensions.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +22,9 @@ class CreateMVI @Inject constructor(
     private val _time by lazy { MutableStateFlow(-1L) }
     val time by lazy { _time.asStateFlow() }
 
+    private val _tags by lazy { MutableStateFlow(emptyList<TagX>()) }
+    val tags by lazy { _tags.asStateFlow() }
+
     override fun createInitialState(): CreateContract.State {
         return CreateContract.State(
             CreateContract.CreateState.Idle
@@ -37,6 +41,12 @@ class CreateMVI @Inject constructor(
             }
             is CreateContract.Event.SetDate -> {
                 _time.value = event.time
+            }
+            is CreateContract.Event.AddTag -> {
+                _tags.value += event.tag
+            }
+            is CreateContract.Event.RemoveTag -> {
+                _tags.value -= event.tag
             }
         }
     }

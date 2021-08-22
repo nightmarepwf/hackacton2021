@@ -21,12 +21,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.qavan.app.compose.AppTextStyleBody
-import com.qavan.app.compose.AppTextStyleCaption
-import com.qavan.app.compose.AppTheme
-import com.qavan.app.compose.RubikMedium
+import com.qavan.app.compose.*
 import com.qavan.app.compose.text.AppTextBody
 import com.qavan.app.compose.text.AppTextCaption
+import com.qavan.app.compose.text.AppTextSubtitle
 import com.qavan.app.extensions.compose.alpha50
 import com.qavan.app.extensions.compose.disabled
 import kotlinx.coroutines.launch
@@ -48,7 +46,7 @@ fun AppOutlinedTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    shape: Shape = RoundedCornerShape(30.dp),
+    shape: Shape = DefaultShape,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
         textColor = MaterialTheme.colors.primary,
         disabledTextColor = MaterialTheme.colors.primary.disabled,
@@ -198,7 +196,7 @@ private fun AppOutlinedTextFieldImpl(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    shape: Shape = RoundedCornerShape(30.dp),
+    shape: Shape = DefaultShape,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
         textColor = MaterialTheme.colors.primary,
         disabledTextColor = MaterialTheme.colors.primary.disabled,
@@ -235,7 +233,7 @@ private fun AppOutlinedTextFieldImpl(
         },
         placeholder = {
             if (placeholder != null) {
-                AppTextBody(
+                AppTextSubtitle(
                     modifier = Modifier.fillMaxWidth(),
                     text = placeholder,
                     color = MaterialTheme.colors.primary.alpha50,
