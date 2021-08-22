@@ -1,26 +1,39 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
-import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
-import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
-import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
+import React from "react";
+import {AuthPage} from './pages/index'
+import BloggerRouter from "./components/BloggerRouter";
+import {Layout, ManagerRouter} from "./components";
 
-import './custom.css'
+class App extends React.Component {
+    state = {
+        isUserLogged: true,
+        userRole: "manager"
+    };
 
-export default class App extends Component {
-  static displayName = App.name;
+    setUserLogged = () => {
+        this.setState({
+            isUserLogged: true, userRole: "manager"
+        })
+    }
 
-  render () {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <AuthorizeRoute path='/fetch-data' component={FetchData} />
-        <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
-      </Layout>
-    );
-  }
+    componentDidMount() {
+        //TODO: проверка авторизации
+    }
+
+    render() {
+        if (!this.state.isUserLogged) {
+            return (
+                <AuthPage setUserLogged={this.setUserLogged}/>
+            );
+        }
+        switch (this.state.userRole) {
+            case "blogger":
+                return <BloggerRouter/>
+            case "manager":
+                return <Layout><ManagerRouter/></Layout>
+            default:
+                return <BloggerRouter/>
+        }
+    }
 }
+
+export default App;

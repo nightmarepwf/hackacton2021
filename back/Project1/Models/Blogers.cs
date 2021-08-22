@@ -13,7 +13,13 @@ namespace Project1.Models
     {
         public static object GetList()
         {
-            var result = JsonConvert.SerializeObject(DataProvider.executeProcedure("dbo.get_blogers")?.Tables?[0]);
+
+            var result = JsonConvert.SerializeObject(new return_obj() {
+                old_blogers = DataProvider.executeProcedure("dbo.get_blogers")?.Tables?[0],
+                new_blogers= JsonConvert.DeserializeObject<search_bloger>(Instagram.ParseByWords().ToString())
+            });
+
+
             return result;
         }
 
@@ -29,7 +35,7 @@ namespace Project1.Models
         new SqlParameter("@youtube", value_obj.youtube),
         new SqlParameter("@date_last_reject", value_obj.date_last_reject)
 };
-            DataProvider.executeProcedure("dbo.create_bloger",dbParams);
+            DataProvider.executeProcedure("dbo.create_bloger", dbParams);
 
             return true;
         }
@@ -39,10 +45,21 @@ namespace Project1.Models
     {
         public string u_name,
  u_soname,
- u_otch="",
+ u_otch = "",
  email,
  instagram,
- youtube="",
+ youtube = "",
  date_last_reject = "";
+    }
+
+    public class search_bloger
+    {
+        public object users;
+    }
+
+    public class return_obj
+    {
+        public object old_blogers;
+        public object new_blogers;
     }
 }

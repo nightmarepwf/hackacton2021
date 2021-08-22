@@ -33,9 +33,7 @@ namespace Project1.Controllers.api
         [HttpPost]
         public  object Post([FromBody] string value)
         {
-            
-            return  Instagram.ParseByWords(); 
-            
+            return  Instagram.CheckPost(); 
         }
     }
     public class userDesc

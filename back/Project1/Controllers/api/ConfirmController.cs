@@ -12,22 +12,18 @@ namespace Project1.Controllers.api
 
     [Route("api/[controller]")]
     [ApiController]
-    public class EventsController : ControllerBase
+    public class ConfirmController : ControllerBase
     {
-        [HttpGet]
-        public object Get()
-        {
-            return Events.GetList("-1");
-        }
-
         [HttpPost]
         public object Post([FromBody] string value)
         {
-            event_value value_obj = JsonConvert.DeserializeObject<event_value>(value);
-            if (Events.CreateEvent(value_obj)) return Events.GetList("-1");
-            return null;
+            gd value_obj = JsonConvert.DeserializeObject<gd>(value);
+            return Events.GetEvent(value_obj.guid);
         }
-
-
     }
+    public class gd {
+        public string guid;
+    }
+    
+
 }

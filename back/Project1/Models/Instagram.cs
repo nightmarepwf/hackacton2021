@@ -116,7 +116,7 @@ namespace Project1.Models
             if (!auth) return false;
             try
             {
-
+         
                 var userFollowers = await InstaApi.UserProcessor
                             .GetUserFollowersAsync("noch4009", PaginationParameters.MaxPagesToLoad(1));
                
@@ -140,6 +140,25 @@ namespace Project1.Models
                 return instUser;
             }
             catch (Exception )
+            {
+                return false;
+            }
+
+
+        }
+
+        public static async Task<object> CheckPost()
+        {
+            var auth = await Auth();
+            if (!auth) return false;
+            try
+            {
+
+                var usermedia = await InstaApi.UserProcessor.GetUserMediaAsync("intoandroiddreams", PaginationParameters.MaxPagesToLoad(25));
+
+                return usermedia;
+            }
+            catch (Exception)
             {
                 return false;
             }
@@ -183,11 +202,7 @@ namespace Project1.Models
         {
             var request = (HttpWebRequest)WebRequest.Create("https://www.instagram.com/");
             var authrequest = (HttpWebRequest)WebRequest.Create("https://www.instagram.com/accounts/login/ajax/");
-      
-             
             var searchrequest = (HttpWebRequest)WebRequest.Create("https://www.instagram.com/web/search/topsearch/?context=blended&query={Самара Путешествие}&rank_token={0.871279}&include_ree=true");
-            
-            
             authrequest.UserAgent = "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 79.0.3945.130 Safari / 537.36";
             request.UserAgent = "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 79.0.3945.130 Safari / 537.36";
             request.CookieContainer = new CookieContainer();
@@ -240,39 +255,19 @@ namespace Project1.Models
 
             using (dataStream = tresponse.GetResponseStream())
             {
-
-                // Open the stream using a StreamReader for easy access.
                 StreamReader reader = new StreamReader(dataStream);
-                // Read the content.
                 string responseFromServer1 = reader.ReadToEnd();
-                // Display the content.
-
             }
-
-            // Close the response.
             tresponse.Close();
-
-
             var sresponse = (HttpWebResponse)searchrequest.GetResponse();
-
             string responseFromServer="";
             using (dataStream = sresponse.GetResponseStream())
             {
-
-                // Open the stream using a StreamReader for easy access.
                 StreamReader reader = new StreamReader(dataStream);
-                // Read the content.
                 responseFromServer = reader.ReadToEnd();
-                // Display the content.
-                Console.WriteLine(responseFromServer);
             }
 
-            // Close the response.
             sresponse.Close();
-
-
-
-
             return responseFromServer;
 
         }
