@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.qavan.app.R
 import com.qavan.app.compose.AppTheme
+import com.qavan.app.extensions.compose.alpha50
 import com.qavan.app.extensions.compose.disabled
 
 @Composable
@@ -27,8 +28,8 @@ fun AppCheckBox(
     checked: Boolean,
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(50),
-    backgroundColor: Color = MaterialTheme.colors.primary,
-    indicatorColor: Color = MaterialTheme.colors.surface,
+    backgroundColor: Color = MaterialTheme.colors.secondary.alpha50,
+    indicatorColor: Color = MaterialTheme.colors.primary,
     @DrawableRes iconRes: Int = R.drawable.ic_checked,
     onCheckedChange: ((Boolean) -> Unit)? = null,
 ) {
@@ -44,8 +45,8 @@ fun AppCheckBox(
                         else -> backgroundColor.disabled
                     }
                     else -> when(enabled) {
-                        true -> indicatorColor
-                        else -> indicatorColor.disabled
+                        true -> backgroundColor
+                        else -> backgroundColor.disabled
                     }
                 }
             )

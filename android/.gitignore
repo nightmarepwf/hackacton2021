@@ -33,8 +33,8 @@ local.properties
 
 # External native build folder generated in Android Studio 2.2 and later
 # Google Services (e.g. APIs or Firebase)
-app/google-services.json
-app/agconnect-services.json
+#app/google-services.json
+#app/agconnect-services.json
 
 # Freeline
 # fastlane
@@ -92,8 +92,8 @@ app/agconnect-services.json
 
 # End of https://www.gitignore.io/pfdoApi/android,firebase,androidstudio
 
-/secrets.properties
-*.jks
+#/secrets.properties
+#*.jks
 !/Dockerfile
 !/packages.txt
 

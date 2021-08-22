@@ -11,7 +11,6 @@ import com.qavan.app.compose.AppTheme
 import com.qavan.app.compose.buttons.AppButton
 import com.qavan.app.compose.text.AppTextH2
 
-
 @Composable
 fun LaunchScreen(
     state: LaunchContract.LaunchState,

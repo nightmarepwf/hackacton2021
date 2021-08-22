@@ -17,8 +17,6 @@ class EventContract {
 
     sealed class EventState {
         object Idle: EventState()
-        object Loading : EventState()
-        object Error : EventState()
     }
 
     sealed class Effect: UiEffect {

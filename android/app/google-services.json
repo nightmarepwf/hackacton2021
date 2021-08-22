@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "0",
+    "project_id": "id_23",
+    "storage_bucket": "id_23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "0:000000000000:android:0000000000000000000000",
+        "android_client_info": {
+          "package_name": "com.qavan.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "000000000000000000000000000000000000000.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qavan.app.dev",
+            "certificate_hash": "0000000000000000000000000000000000000000"
+          }
+        },
+        {
+          "client_id": "00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "000000000000000000000000000000000000000"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "000000000000000000000000000000000000000.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
