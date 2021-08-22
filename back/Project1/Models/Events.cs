@@ -60,7 +60,7 @@ namespace Project1.Models
 };
                 
                 DataProvider.executeProcedure("dbo.sync_user_for_event", dbParams);
-                //Instagram.SendMessage(usr.instagram,"Приглашаем вас на мероприятие "+ evt.title+"\r\n Ссылка на мероприятие: "+ url+g) ;
+                Instagram.SendMessage(usr.instagram,"Приглашаем вас на мероприятие "+ evt.title+"\r\n Ссылка на мероприятие: "+ url+g) ;
             }
             return true;
         }
