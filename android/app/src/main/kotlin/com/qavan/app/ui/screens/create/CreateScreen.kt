@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.qavan.app.R
 import com.qavan.app.compose.AppTheme
 import com.qavan.app.compose.buttons.AppButtonAction
@@ -57,6 +58,7 @@ fun CreateScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .navigationBarsWithImePadding()
             .padding(8.dp)
     ) {
         val focusRequesterTitle = remember { FocusRequester() }

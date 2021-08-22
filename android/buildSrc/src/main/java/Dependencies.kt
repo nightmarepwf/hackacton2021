@@ -227,6 +227,8 @@ object Dependencies {
         private const val accompanistNavigationAnimation = "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
         private const val accompanistPager = "com.google.accompanist:accompanist-pager:$accompanistVersion"
         private const val accompanistPagerIndicator = "com.google.accompanist:accompanist-pager-indicators:$accompanistVersion"
+        private const val accompanistInsets = "com.google.accompanist:accompanist-insets:$accompanistVersion"
+        private const val accompanistInsetsUi = "com.google.accompanist:accompanist-insets-ui:$accompanistVersion"
 
         val impl = listOf(
             compiler,
@@ -246,6 +248,8 @@ object Dependencies {
             accompanistNavigationAnimation,
             accompanistPager,
             accompanistPagerIndicator,
+            accompanistInsets,
+            accompanistInsetsUi,
         )
         val debugImpl = listOf(
             uiTooling,

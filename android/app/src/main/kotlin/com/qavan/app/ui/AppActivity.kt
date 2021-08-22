@@ -24,8 +24,9 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NamedNavArgument
-import androidx.navigation.compose.NavHost
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -77,8 +78,12 @@ class AppActivity: AppCompatActivity() {
         (supportFragmentManager.fragments.firstOrNull { it.tag == DatePickerTag } as? MaterialDatePicker<*>)?.dismiss()
         setContent {
             AppTheme {
-                Surface(color = MaterialTheme.colors.background) {
-                    Content()
+                ProvideWindowInsets {
+                    Surface(
+                        color = MaterialTheme.colors.background
+                    ) {
+                        Content()
+                    }
                 }
             }
         }
