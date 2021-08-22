@@ -37,27 +37,36 @@ fun ItemMention(
             .clip(DefaultShape)
             .padding(horizontal = 4.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(3.dp),
     ) {
+        Icon(
+            modifier = Modifier
+                .size(23.dp),
+            imageVector = ImageVector.vectorResource(
+                id = R.drawable.ic_mention
+            ),
+            contentDescription = null,
+            tint = MaterialTheme.colors.secondary,
+        )
         AppTextSubtitle(
-            modifier = Modifier.padding(start = 6.dp, bottom = 2.dp),
+            modifier = Modifier.padding(start = 0.dp, bottom = 2.dp),
             text = buildAnnotatedString {
                 withStyle(SpanStyle(fontWeight = FontWeight(1000))) {
-                    append("@")
+                    append(mention.name)
                 }
-                append(mention.name)
             },
             color = MaterialTheme.colors.secondary,
         )
+        Spacer(modifier = Modifier.width(3.dp))
         Icon(
             modifier = Modifier
-                .rotate(45f)
                 .size(23.dp)
                 .clip(RoundedCornerShape(50))
                 .clickable {
                     onRemoveIconClick(mention)
                 },
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_add_circle_outline_24),
+            imageVector = ImageVector.vectorResource(
+                id = R.drawable.ic_remove_tag_24
+            ),
             contentDescription = null,
             tint = MaterialTheme.colors.secondary,
         )

@@ -43,13 +43,14 @@ fun ItemTag(
         )
         Icon(
             modifier = Modifier
-                .rotate(45f)
                 .size(23.dp)
                 .clip(RoundedCornerShape(50))
                 .clickable {
                     onRemoveIconClick(tag)
                 },
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_add_circle_outline_24),
+            imageVector = ImageVector.vectorResource(
+                id = R.drawable.ic_remove_tag_24
+            ),
             contentDescription = null,
             tint = MaterialTheme.colors.secondary,
         )

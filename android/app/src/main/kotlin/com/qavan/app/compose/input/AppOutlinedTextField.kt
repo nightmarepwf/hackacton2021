@@ -184,10 +184,7 @@ private fun AppOutlinedTextFieldImpl(
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textColor: Color = MaterialTheme.colors.primary,
-    textStyle: TextStyle = when {
-        value.isBlank() -> AppTextStyleBody.copy(color = textColor, fontFamily = RubikMedium)
-        else -> AppTextStyleBody.copy(color = textColor)
-    },
+    textStyle: TextStyle = AppTextStyleSubheading,
     placeholder: AnnotatedString? = buildAnnotatedString {  },
     trailingIcon: @Composable (() -> Unit)? = null,
 //    isError: Boolean = false,

@@ -142,8 +142,8 @@ fun CreateScreen(
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(8.dp))
         }
+        Spacer(modifier = Modifier.height(8.dp))
         AppTextBody(
             text = "Упоминания",
             color = MaterialTheme.colors.primary,
